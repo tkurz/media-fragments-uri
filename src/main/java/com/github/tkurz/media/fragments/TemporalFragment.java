@@ -7,6 +7,9 @@ package com.github.tkurz.media.fragments;
  */
 public interface TemporalFragment {
 
+    /**
+     * temporal units; at the moment only npt is supported
+     */
     public enum Unit {
         NPT,
         SMPTE,

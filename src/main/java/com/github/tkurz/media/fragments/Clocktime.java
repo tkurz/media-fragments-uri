@@ -1,7 +1,7 @@
 package com.github.tkurz.media.fragments;
 
 /**
- * ...
+ * Represents clocktime as double value
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
@@ -21,10 +21,21 @@ public class Clocktime {
         this.value = d;
     }
 
+    /**
+     * parse clocktime in seconds and milliseconds (e.g. 123.456)
+     * @param seconds
+     */
     public Clocktime(String seconds) {
         value = Double.parseDouble(seconds);
     }
 
+    /**
+     * parse clocktime given by hours, minutes, seconds and milliseconds
+     * @param hour
+     * @param minutes
+     * @param seconds
+     * @param ms
+     */
     public Clocktime(String hour, String minutes, String seconds, String ms) {
         double h = hour != null ? Double.parseDouble(hour) * 3600 : 0;
         double m = Double.parseDouble(minutes) * 60;

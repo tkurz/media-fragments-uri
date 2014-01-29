@@ -1,7 +1,8 @@
 package com.github.tkurz.media.fragments;
 
 /**
- * ...
+ * Represents a temporal fragment in 'Normal Play Time' (npt) like specified in RFC 2326.
+ * By default, start time is 0.0 and end time is infinite.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */

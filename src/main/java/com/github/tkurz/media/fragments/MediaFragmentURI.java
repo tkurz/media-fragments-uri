@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * ...
+ * Represents a media fragment uri (like specified in http://www.w3.org/TR/media-frags/)
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
@@ -14,6 +14,11 @@ public class MediaFragmentURI {
     private URI uri;
     private MediaFragment mediaFragment;
 
+    /**
+     * Creates a media fragment from string. If no fragment is specified, an empty media fragment is created
+     * @param uri_string a uri (may have media fragments)
+     * @throws MediaFragmentURISyntaxException
+     */
     public MediaFragmentURI(String uri_string) throws MediaFragmentURISyntaxException {
         try {
             this.uri = new URI(uri_string);

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * ...
+ * This class represents a media fragment. It can include id, track, temporalFragment and regionalFragment.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */

@@ -1,7 +1,7 @@
 package com.github.tkurz.media.fragments;
 
 /**
- * ...
+ * Represents a regional fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */

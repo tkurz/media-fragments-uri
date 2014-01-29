@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.StringReader;
 
 /**
- * ...
+ * Test media fragment uri implementation
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
