@@ -1,0 +1,242 @@
+// This parser is based on http://www.w3.org/2008/WebVideo/Fragments/code/grammar/FragmentGrammar.jj
+// with is licensed under http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+// @author Thomas Kurz
+// @version 0.1
+
+options {
+    IGNORE_CASE   = false;
+    STATIC        = false;
+    UNICODE_INPUT = false;
+/*      
+    DEBUG_TOKEN_MANAGER = true; 
+    DEBUG_PARSER        = true;      
+*/
+}
+
+PARSER_BEGIN(FragmentParser)
+package com.github.tkurz.media.fragments;
+
+public class FragmentParser {
+
+}
+PARSER_END(FragmentParser)
+
+/*
+ * The tokenizer 
+ */
+
+<DEFAULT>
+	TOKEN :
+{
+  <TIMEPREFIX: ( "t" | "%74" ) >
+  | <TIMEUNIT: ( "s" | "%73" ) >
+  | < DEFTIMEFORMAT : ( "n" | "%6e" | "%6E" ) ( "p" | "%70" ) ( "t" | "%74" ) >
+  | < TIMEFORMAT    : ( "s" | "%73" ) ( "m" | "%6d" | "%6D" ) ( "p" | "%70" ) ( "t" | "%74" ) ( "e" | "%65" ) ( "-" ( ( ( "2" | "%32" ) ( "5" | "%35" ) ) | ( ( "3" | "%33" ) ( "0" | "%30" ) ( "-" ( "d" | "%64" ) ( "r" | "%72" ) ( "o" | "%6f" | "%6F" ) ( "p" | "%70" ) )? ) ) )? > 
+  | < XYWHPREFIX   : ( "x" | "%78" ) ( "y" | "%79" ) ( "w" | "%77" ) ( "h" | "%68" ) >
+  | < XYWHUNIT : ( ( "p" | "%70" ) ( "i" | "%69" ) ( "x" | "%78" ) ( "e" | "%65" ) ( "l" | "%6c" | "%6C" ) ) | ( ( "p" | "%70" ) ( "e" | "%65" ) ( "r" | "%72" ) ( "c" | "%63" ) ( "e" | "%65" ) ( "n" | "%6e" | "%6E" ) ( "t" | "%74" ) ) >
+  | < TRACKPREFIX : ( "t" | "%74" ) ( "r" | "%72" ) ( "a" | "%61" ) ( "c" | "%63" ) ( "k" | "%6b" | "%6B" ) >
+  | < NAMEPREFIX : ( "i" | "%69" ) ( "d" | "%64" ) >
+}
+
+<DEFAULT>
+    TOKEN :
+{
+    < COLON : ":" >
+  | < EQ    : "=" >
+  | < AMP   : "&" >
+  | < COMMA : "," >
+  | < DOT   : ( "." | "%2E" | "%2e" ) >
+}
+
+<DEFAULT>
+    TOKEN : /* rfc2234 */
+{
+    < #ALPHA  : ["A"-"Z","a"-"z"] >
+  | < DIGIT  : ["0"-"9"] >
+  | < #HEXDIG : ( <DIGIT> | ["A"-"F","a"-"f"] ) >
+}
+
+<DEFAULT>
+    TOKEN : /* rfc3986 */
+{
+  <PDIGIT : "%3" <DIGIT> >
+  | < UNRESERVED   : <ALPHA> | <DIGIT> | "-" | "." | "_" | "~" >
+  | < PCT_ENCODED  : "%" <HEXDIG> <HEXDIG> >
+  | < SUB_DELIMS   : "!" | "$" | "&" | "'" | "(" | ")" | "*" | "+" | "," | ";" | "=" >
+}
+
+
+////////////////////////////////////////////////////////////////////
+//                     End of Lexical Scanner                     // 
+////////////////////////////////////////////////////////////////////
+
+Token pdigit() :
+{Token t;}
+{
+ ( t=<DIGIT> | t=<PDIGIT> )
+ {return t;}
+}
+
+String utf8string() :
+{StringBuilder b = new StringBuilder(); Token t;}
+{
+ (( t=<UNRESERVED> | t=<PCT_ENCODED> | t=<TIMEPREFIX> | t=<TIMEUNIT> | t=<DEFTIMEFORMAT> | t=<XYWHPREFIX> | t=<XYWHUNIT> | t=<TRACKPREFIX> | t=<NAMEPREFIX> | t=<DIGIT> | t=<PDIGIT> ){b.append(t.image);})+
+ {return b.toString();}
+}
+
+MediaFragment run() :
+{MediaFragment m = new MediaFragment();}
+{
+    mediasegment(m)
+    <EOF>
+    {return m;}
+}
+
+void mediasegment(MediaFragment m) :
+{}
+{
+    namesegment(m) | axissegment(m)
+}
+
+void namesegment(MediaFragment m) :
+{String s;}
+{
+    ( <NAMEPREFIX> <EQ> s=nameparam() )
+    {m.setId(s);}
+}
+
+String nameparam() :
+{String s;}
+{
+    s=utf8string()
+    {return s;}
+}
+
+void axissegment(MediaFragment m) :
+{
+    boolean gottime  = false;
+    boolean gotspace = false;
+    boolean gottrack = false;
+}
+{
+    // implement the grammar + the restriction in the prose
+    ( timesegment(m) { gottime = true; }
+      | spacesegment(m) { gotspace = true; }
+      | tracksegment(m) { gottrack = true; }
+      ) 
+	( <AMP> ( timesegment(m) { if (gottime) throw new ParseException(); gottime = true; }
+		  | spacesegment(m) { if (gotspace) throw new ParseException(); gotspace = true; }
+		  | tracksegment(m) { if (gottrack) throw new ParseException(); gottrack = true; }
+		  ) )* 
+	}
+
+void timesegment(MediaFragment m) :
+{TemporalFragment t;}
+{
+    <TIMEPREFIX> <EQ> t=timeparam()
+    {m.setTemporalFragment(t);}
+}
+
+TemporalFragment timeparam() :
+{TemporalFragment t;}
+{
+    (t=npttimedef() | t=othertimedef())
+    {return t;}
+}
+
+TemporalFragment npttimedef() :
+{Clocktime s=null;Clocktime e=null;}
+{
+    ( <DEFTIMEFORMAT> <COLON> )?
+    ( ( s=clocktime() ( <COMMA> e=clocktime() )? ) | ( <COMMA> e=clocktime() ) )
+    {
+        NPTFragment f = new NPTFragment();
+        f.setStart(s);
+        f.setEnd(e);
+        return f;
+    }
+}
+
+Clocktime clocktime() :
+{Token t,t2;StringBuilder n1 = new StringBuilder();String n2=null;String n3=null;StringBuilder n4 = new StringBuilder();boolean type2=false;boolean hasH=false;boolean hasZ=false;}
+{
+    ( t=pdigit() {n1.append(t.image);} )+
+    ( ( <DOT> {n1.append(".");} ( t=pdigit() {n1.append(t);} )* ( <TIMEUNIT> )? )
+                   | ( <COLON> t=pdigit() t2=pdigit() {n2 = t.image + t2.image;}
+                   ( <COLON> t=pdigit() t2=pdigit() {n3 = t.image + t2.image;hasH=true;} )?
+                   ( <DOT> ( t=pdigit() {n4.append(t.image);} )* {hasZ = true;} )? {type2 = true;}) )?
+    {
+        if(type2) {
+            if(hasH) {
+                if(hasZ) return new Clocktime(n1.toString(),n2,n3,n4.toString());
+                else return new Clocktime(n1.toString(),n2,n3,null);
+            } else {
+                if(hasZ) return new Clocktime(null,n1.toString(),n2,n4.toString());
+                else return new Clocktime(null,n1.toString(),n2,null);
+            }
+        } else {
+            return new Clocktime(n1.toString());
+        }
+    }
+}
+
+TemporalFragment othertimedef() :
+{Token t;}
+{
+    t=<TIMEFORMAT> <COLON>  ( ( frametime() ( <COMMA> frametime() )? ) | ( <COMMA> frametime() ) )
+    {throw new ParseException("timeformat "+t.image+" is  not yet supported");}//TODO
+}
+
+void frametime() :
+{}
+{
+    ( pdigit() )+ <COLON> pdigit() pdigit() <COLON> pdigit() pdigit() ( <COLON> pdigit() pdigit() ( <DOT> pdigit() pdigit() )? )?
+}
+
+void spacesegment(MediaFragment m) :
+{}
+{
+    xywhdef(m)
+}
+
+void xywhdef(MediaFragment m) :
+{RegionalFragment f;}
+{
+    <XYWHPREFIX> <EQ> f=xywhparam()
+    {m.setRegionalFragment(f);}
+}
+
+RegionalFragment xywhparam() :
+{RegionalFragment f = new RegionalFragment();Token t=null;RegionalFragment.Unit u; double x,y,w,h;}
+{
+    ( t=<XYWHUNIT> <COLON> )? x=number() <COMMA> y=number() <COMMA> w=number() <COMMA> h=number()
+    {
+        if(t!=null) f.setUnit( RegionalFragment.Unit.valueOf(t.image.toUpperCase()) );
+        f.setX(x);
+        f.setY(y);
+        f.setW(w);
+        f.setH(h);
+        return f;
+    }
+}
+
+double number() :
+{StringBuilder b = new StringBuilder();Token d;}
+{
+    ( d=pdigit() {b.append(d);} )+
+    {return Double.parseDouble(b.toString());}
+}
+
+void tracksegment(MediaFragment m) :
+{String s;}
+{
+    <TRACKPREFIX> <EQ> s=trackparam()
+    {m.setTrack(s);}
+}
+
+String trackparam() :
+{String s;}
+{
+    s=utf8string()
+    {return s;}
+}
