@@ -8,7 +8,7 @@ Example
 =======
 
 The library can be used to parse and serialize media fragments. Here are some examples, for more information look at the
-tests at [MediaFragmentURITest.class](blob/master/src/test/java/com/github/tkurz/media/fragments/MediaFragmentURITest.java).
+tests at [MediaFragmentURITest.class](src/test/java/com/github/tkurz/media/fragments/MediaFragmentURITest.java).
 
 Parsing Media Fragment
 ----------------------
