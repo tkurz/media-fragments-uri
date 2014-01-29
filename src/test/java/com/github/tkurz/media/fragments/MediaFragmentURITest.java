@@ -10,7 +10,7 @@ import java.io.StringReader;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class ParserTest {
+public class MediaFragmentURITest {
 
     @Test
     public void parseIdFragment() throws ParseException {
@@ -214,7 +214,7 @@ public class ParserTest {
         uri.getMediaFragment().setRegionalFragment(new RegionalFragment(10,20,30,40));
         uri.getMediaFragment().setTemporalFragment(new NPTFragment(Clocktime.ZERO,new Clocktime(10)));
 
-        System.out.println(uri);
+        Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#xywh=pixel:10.0,20.0,30.0,40.0&t=,10.0", uri.toString());
     }
 
 }
