@@ -98,4 +98,4 @@ Contact
 
 **Thomas Kurz**
 
-thomas.kurz@salzburgresearch.at
+tkurz@apache.org
