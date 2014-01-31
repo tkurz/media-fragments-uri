@@ -9,7 +9,7 @@ Example
 
 The library can be used to parse and serialize media fragments. Additionally it implements several spacio-temporal
 functions (e.g. above, below, before, after, etc). Here are some examples, for more information look at the
-tests at [MediaFragmentURITest.class](src/test/java/com/github/tkurz/media/fragments).
+tests [here](src/test/java/com/github/tkurz/media/fragments).
 
 Parsing Media Fragment
 ----------------------
