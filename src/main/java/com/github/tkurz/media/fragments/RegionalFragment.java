@@ -71,16 +71,24 @@ public class RegionalFragment {
     public String toString() {
         StringBuilder b = new StringBuilder();
         b.append("xywh=");
-        b.append(unit.name().toLowerCase());
-        b.append(":");
-        b.append(x);
+        b.append(unitToString(unit));
+        b.append(doubleToString(x));
         b.append(",");
-        b.append(y);
+        b.append(doubleToString(y));
         b.append(",");
-        b.append(w);
+        b.append(doubleToString(w));
         b.append(",");
-        b.append(h);
+        b.append(doubleToString(h));
         return b.toString();
+    }
+
+    private String doubleToString(double d) {
+        if((int) d == d) return Integer.toString((int) d);
+        return String.valueOf(d);
+    }
+
+    private String unitToString(Unit u) {
+        return u == Unit.PIXEL ? "" : u.name().toLowerCase()+":";
     }
 
     public boolean leftBeside(RegionalFragment r) throws FunctionException {
@@ -160,7 +168,7 @@ public class RegionalFragment {
     public RegionalFragment getBoundingBox(RegionalFragment r) throws FunctionException {
         assertComparable(this, r);
         return new RegionalFragment(this.getUnit(),
-                Math.min(this.getX(),r.getX()),
+                Math.min(this.getX(), r.getX()),
                 Math.min(this.getY(), r.getY()),
                 Math.max(this.getX() + this.getW(), r.getX() + r.getW()),
                 Math.max(this.getY() + this.getH(), r.getY() + r.getH()));

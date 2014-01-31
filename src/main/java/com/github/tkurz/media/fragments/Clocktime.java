@@ -53,6 +53,7 @@ public class Clocktime implements Comparable<Clocktime> {
     }
 
     public String toString() {
+        if((int) value == value) return Integer.toString((int) value);
         return String.valueOf(value);
     }
 
