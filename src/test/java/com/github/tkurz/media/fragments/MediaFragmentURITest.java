@@ -217,4 +217,15 @@ public class MediaFragmentURITest {
         Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#xywh=pixel:10.0,20.0,30.0,40.0&t=,10.0", uri.toString());
     }
 
+    @Test
+    public void compareClocktime() {
+        Clocktime c1 = new Clocktime(0);
+        Clocktime c2 = new Clocktime(0);
+        Clocktime c3 = new Clocktime(1);
+
+        Assert.assertEquals(-1, c1.compareTo(c3));
+        Assert.assertEquals(1,c3.compareTo(c2));
+        Assert.assertEquals(0,c1.compareTo(c2));
+    }
+
 }

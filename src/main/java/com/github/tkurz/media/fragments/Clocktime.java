@@ -5,7 +5,7 @@ package com.github.tkurz.media.fragments;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class Clocktime {
+public class Clocktime implements Comparable<Clocktime> {
 
     public static final Clocktime ZERO;
     public static final Clocktime INFINIT;
@@ -56,4 +56,24 @@ public class Clocktime {
         return String.valueOf(value);
     }
 
+    @Override
+    public int compareTo(Clocktime o) {
+        return this.value == o.value ? 0 : this.value < o.value ? -1 : 1;
+    }
+
+    public static Clocktime max(Clocktime... clocktimes) {
+        Clocktime max = clocktimes[0];
+        for(Clocktime c : clocktimes) {
+            max = max.compareTo(c) < 0 ? c : max;
+        }
+        return max;
+    }
+
+    public static Clocktime min(Clocktime... clocktimes) {
+        Clocktime min = clocktimes[0];
+        for(Clocktime c : clocktimes) {
+            min = min.compareTo(c) < 0 ? min : c;
+        }
+        return min;
+    }
 }

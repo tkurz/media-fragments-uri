@@ -6,7 +6,7 @@ package com.github.tkurz.media.fragments;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class NPTFragment implements TemporalFragment {
+public class NPTFragment implements TemporalFragment<NPTFragment> {
 
     private Clocktime start;
     private Clocktime end;
@@ -17,8 +17,8 @@ public class NPTFragment implements TemporalFragment {
     }
 
     public NPTFragment(Clocktime start, Clocktime end) {
-        this.start = start;
-        this.end = end;
+        this.start = start != null ? start : Clocktime.ZERO;
+        this.end = end != null ? end : Clocktime.INFINIT;
     }
 
     @Override
@@ -27,11 +27,11 @@ public class NPTFragment implements TemporalFragment {
     }
 
     public Clocktime getStart() {
-        return start != null ? start : Clocktime.ZERO;
+        return start;
     }
 
     public void setStart(Clocktime start) {
-        this.start = start;
+        this.start = start != null ? start : Clocktime.ZERO;
     }
 
     public Clocktime getEnd() {
@@ -39,7 +39,7 @@ public class NPTFragment implements TemporalFragment {
     }
 
     public void setEnd(Clocktime end) {
-        this.end = end;
+        this.end = end != null ? end : Clocktime.INFINIT;
     }
 
     public String toString() {
@@ -47,4 +47,72 @@ public class NPTFragment implements TemporalFragment {
         if(start == Clocktime.ZERO) return "t=,"+end;
         return "t="+start+","+end;
     }
+
+    @Override
+    public boolean equal(NPTFragment f) {
+        return this.start == f.start && this.end == f.end;
+    }
+
+    @Override
+    public boolean after(NPTFragment f) {
+        return this.start.compareTo(f.end) >= 0;
+    }
+
+    @Override
+    public boolean before(NPTFragment f) {
+        return this.end.compareTo(f.start) <= 0;
+    }
+
+    @Override
+    public boolean meets(NPTFragment f) {
+        return this.start.compareTo(f.end) == 0 || this.end.compareTo(f.start) == 0;
+    }
+
+    @Override
+    public boolean overlaps(NPTFragment f) {
+        return this.start.compareTo(f.end) == -1  && f.end.compareTo(this.end) == -1
+                || f.start.compareTo(this.end) == -1  && this.end.compareTo(f.end) == -1
+                || this.includes(f)
+                || this.covers(f);
+    }
+
+    @Override
+    public boolean includes(NPTFragment f) {
+        return this.start.compareTo(f.start) <= 0 && this.end.compareTo(f.end) >= 0;
+    }
+
+    @Override
+    public boolean covers(NPTFragment f) {
+        return f.includes(this);
+    }
+
+    @Override
+    public TemporalFragment<NPTFragment> getIntersection(NPTFragment f) {
+        if(this.overlaps(f)) {
+            return new NPTFragment(Clocktime.max(this.start,f.start),Clocktime.min(this.end,f.end));
+        }
+        return null;
+    }
+
+    @Override
+    public TemporalFragment<NPTFragment> getUnion(NPTFragment f) {
+        if(this.overlaps(f)) {
+            return this.getBoundingBox(f);
+        }
+        return null;
+    }
+
+    @Override
+    public TemporalFragment<NPTFragment> getIntermediate(NPTFragment f) {
+        if(this.overlaps(f)) return null;
+
+        return new NPTFragment(Clocktime.min(this.end,f.end),Clocktime.max(this.start,f.start));
+    }
+
+    @Override
+    public TemporalFragment<NPTFragment> getBoundingBox(NPTFragment f) {
+        return new NPTFragment(Clocktime.min(this.start,f.start),Clocktime.max(this.end,f.end));
+    }
+
+
 }
