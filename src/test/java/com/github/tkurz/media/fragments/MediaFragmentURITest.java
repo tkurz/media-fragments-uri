@@ -190,10 +190,9 @@ public class MediaFragmentURITest {
     @Test
     public void testToString() throws MediaFragmentURISyntaxException {
         String uri_string = "http://example.org/video.mp4#t=10,20&xywh=160,120,320,240";
-        String _uri_string = "http://example.org/video.mp4#t=10.0,20.0&xywh=pixel:160.0,120.0,320.0,240.0";
         MediaFragmentURI uri = new MediaFragmentURI(uri_string);
 
-        Assert.assertEquals("toString method is not correct",_uri_string,uri.toString());
+        Assert.assertEquals("toString method is not correct",uri_string,uri.toString());
 
         String uri_string2 = "http://example.org/video.mp4#track=audio";
         MediaFragmentURI uri2 = new MediaFragmentURI(uri_string2);
@@ -207,6 +206,14 @@ public class MediaFragmentURITest {
     }
 
     @Test
+    public void testOutput() throws MediaFragmentURISyntaxException {
+        String uri_string = "http://example.org/video.mp4#t=10.1,20";
+        MediaFragmentURI uri = new MediaFragmentURI(uri_string);
+
+        Assert.assertEquals("toString method is not correct",uri_string,uri.toString());
+    }
+
+    @Test
     public void testModification() throws MediaFragmentURISyntaxException {
         String uri_string = "http://example.org/video.mp4";
         MediaFragmentURI uri = new MediaFragmentURI(uri_string);
@@ -214,7 +221,7 @@ public class MediaFragmentURITest {
         uri.getMediaFragment().setRegionalFragment(new RegionalFragment(10,20,30,40));
         uri.getMediaFragment().setTemporalFragment(new NPTFragment(Clocktime.ZERO,new Clocktime(10)));
 
-        Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#xywh=pixel:10.0,20.0,30.0,40.0&t=,10.0", uri.toString());
+        Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#xywh=10,20,30,40&t=,10", uri.toString());
     }
 
     @Test
@@ -227,5 +234,4 @@ public class MediaFragmentURITest {
         Assert.assertEquals(1,c3.compareTo(c2));
         Assert.assertEquals(0,c1.compareTo(c2));
     }
-
 }
