@@ -1,7 +1,7 @@
 package com.github.tkurz.media.fragments;
 
 /**
- * ...
+ * Spacial and regional functions throw this exception
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */

@@ -33,6 +33,10 @@ public class MediaFragmentURI {
         }
     }
 
+    /**
+     * returns the media fragment
+     * @return a media fragment
+     */
     public MediaFragment getMediaFragment() {
         return mediaFragment;
     }
