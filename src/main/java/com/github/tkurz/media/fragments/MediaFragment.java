@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * This class represents a media fragment. It can include id, track, temporalFragment and regionalFragment.
+ * This class represents a media fragment. It can include id, track, temporalFragment and spatialFragment.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
@@ -14,7 +14,7 @@ public class MediaFragment {
     private String id;
     private String track;
     private TemporalFragment temporalFragment;
-    private RegionalFragment regionalFragment;
+    private SpatialFragment spatialFragment;
 
     public boolean hasId() {return id!=null;}
 
@@ -22,7 +22,7 @@ public class MediaFragment {
 
     public boolean hasTemporalFragment() {return temporalFragment != null;}
 
-    public boolean hasRegionalFragment() {return regionalFragment != null;}
+    public boolean hasSpatialFragment() {return spatialFragment != null;}
 
     public String getId() {
         return id;
@@ -48,12 +48,12 @@ public class MediaFragment {
         this.temporalFragment = temporalFragment;
     }
 
-    public RegionalFragment getRegionalFragment() {
-        return regionalFragment;
+    public SpatialFragment getSpatialFragment() {
+        return spatialFragment;
     }
 
-    public void setRegionalFragment(RegionalFragment regionalFragment) {
-        this.regionalFragment = regionalFragment;
+    public void setSpatialFragment(SpatialFragment spatialFragment) {
+        this.spatialFragment = spatialFragment;
     }
 
     public String toString() {
@@ -61,7 +61,7 @@ public class MediaFragment {
         Set<String> set = new HashSet<>();
         if(track!=null) set.add("track="+track);
         if(temporalFragment!=null) set.add(temporalFragment.toString());
-        if(regionalFragment!=null) set.add(regionalFragment.toString());
+        if(spatialFragment !=null) set.add(spatialFragment.toString());
         return join(set);
     }
 

@@ -200,18 +200,18 @@ void spacesegment(MediaFragment m) :
 }
 
 void xywhdef(MediaFragment m) :
-{RegionalFragment f;}
+{SpatialFragment f;}
 {
     <XYWHPREFIX> <EQ> f=xywhparam()
-    {m.setRegionalFragment(f);}
+    {m.setSpatialFragment(f);}
 }
 
-RegionalFragment xywhparam() :
-{RegionalFragment f = new RegionalFragment();Token t=null;RegionalFragment.Unit u; double x,y,w,h;}
+SpatialFragment xywhparam() :
+{SpatialFragment f = new SpatialFragment();Token t=null;SpatialFragment.Unit u; double x,y,w,h;}
 {
     ( t=<XYWHUNIT> <COLON> )? x=number() <COMMA> y=number() <COMMA> w=number() <COMMA> h=number()
     {
-        if(t!=null) f.setUnit( RegionalFragment.Unit.valueOf(t.image.toUpperCase()) );
+        if(t!=null) f.setUnit( SpatialFragment.Unit.valueOf(t.image.toUpperCase()) );
         f.setX(x);
         f.setY(y);
         f.setW(w);

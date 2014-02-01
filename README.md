@@ -30,11 +30,11 @@ Parsing Media Fragment
 
     }
 
-    if(uri.getMediaFragment().hasRegionalFragment()) {
+    if(uri.getMediaFragment().hasSpatialFragment()) {
 
-        double w = uri.getMediaFragment().getRegionalFragment().getW();
+        double w = uri.getMediaFragment().getSpatialFragment().getW();
 
-        RegionalFragment.Unit unit = uri.getMediaFragment().getRegionalFragment().getUnit();
+        SpatialFragment.Unit unit = uri.getMediaFragment().getSpatialFragment().getUnit();
 
     }
 
@@ -47,11 +47,11 @@ Serializing Media Fragments
 
     MediaFragmentURI uri = new MediaFragmentURI("http://example.org/video.mp4");
 
-    uri.getMediaFragment().setRegionalFragment(new RegionalFragment(10,20,30,40));
+    uri.getMediaFragment().setSpatialFragment(new SpatialFragment(10,20,30,40));
 
     uri.getMediaFragment().setTemporalFragment(new NPTFragment(Clocktime.ZERO,new Clocktime(10)));
 
-    System.out.println(uri); // prints 'http://example.org/video.mp4#xywh=pixel:10.0,20.0,30.0,40.0&t=,10.0'
+    System.out.println(uri); // prints 'http://example.org/video.mp4#xywh=10,20,30,40&t=,10'
 
 ```
 
@@ -72,7 +72,7 @@ Temporal Functions
 
 ```
 
-Regional Functions
+Spatial Functions
 ------------------
 
 ```java
@@ -80,16 +80,28 @@ Regional Functions
     MediaFragmentURI uri1 = new MediaFragmentURI("http://example.org/video.mp4#xywh=0,0,20,20");
     MediaFragmentURI uri2 = new MediaFragmentURI("http://example.org/video.mp4#xywh=10,10,20,20");
 
-    RegionalFragment r1 = uri1.getMediaFragment().getRegionalFragment();
-    RegionalFragment r2 = uri2.getMediaFragment().getRegionalFragment();
+    SpatialFragment r1 = uri1.getMediaFragment().getSpatialFragment();
+    SpatialFragment r2 = uri2.getMediaFragment().getSpatialFragment();
 
-    System.out.println(String.valueOf(1.0));
-    System.out.println(String.valueOf(1.12));
     System.out.println(r1.overlaps(r2)); //prints 'true'
 
     System.out.println(r1.getBoundingBox(r2)); //prints 'xywh=0,0,30,30'
 
     System.out.println(r1.getIntersection(r2)); //prints 'xywh=10,10,10,10'
+
+```
+
+Media Fragment Utils
+--------------------
+
+```java
+
+    MediaFragmentURI uri1 = new MediaFragmentURI("http://example.org/video.mp4#t=10,20&xywh=0,0,20,20");
+    MediaFragmentURI uri2 = new MediaFragmentURI("http://example.org/video.mp4#t=30,40&xywh=percent:10,10,20,20");
+
+    System.out.println(MediaFragments.spatialComparable( uri1, uri2 )); //returns 'false'
+
+    System.out.println(MediaFragments.temporalComparable( uri1, uri2 )); //returns 'true'
 
 ```
 

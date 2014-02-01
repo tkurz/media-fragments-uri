@@ -1,22 +1,22 @@
 package com.github.tkurz.media.fragments;
 
 /**
- * Represents a regional fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
+ * Represents a spacial fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class RegionalFragment {
+public class SpatialFragment {
 
     private Unit unit = Unit.PIXEL;
     private double x,y,w,h;
 
-    public RegionalFragment() {}
+    public SpatialFragment() {}
 
-    public RegionalFragment(double x, double y, double w, double h) {
+    public SpatialFragment(double x, double y, double w, double h) {
         this(Unit.PIXEL,x,y,w,h);
     }
 
-    public RegionalFragment(Unit unit, double x, double y, double w, double h) {
+    public SpatialFragment(Unit unit, double x, double y, double w, double h) {
         this.unit = unit;
         this.x = x;
         this.y = y;
@@ -91,22 +91,22 @@ public class RegionalFragment {
         return u == Unit.PIXEL ? "" : u.name().toLowerCase()+":";
     }
 
-    public boolean leftBeside(RegionalFragment r) throws FunctionException {
+    public boolean leftBeside(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return this.getX()+this.getW() <= r.getX();
     }
 
-    public boolean rightBeside(RegionalFragment r) throws FunctionException {
+    public boolean rightBeside(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return this.getX() >= r.getX()+r.getW();
     }
 
-    public boolean isAbove(RegionalFragment r) throws FunctionException {
+    public boolean isAbove(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return this.getY()+this.getH() <= r.getY();
     }
 
-    public boolean isBelow(RegionalFragment r) throws FunctionException {
+    public boolean isBelow(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return this.getY() >= r.getY()+r.getH();
     }
@@ -132,7 +132,7 @@ public class RegionalFragment {
     }
 
     //not (X1+W1<X2 or X2+W2<X1 or Y1+H1<Y2 or Y2+H2<Y1)
-    public boolean overlaps(RegionalFragment r) throws FunctionException {
+    public boolean overlaps(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return !(this.getX()+this.getW() <= r.getX()
             || r.getX()+r.getW() <= this.getX()
@@ -141,7 +141,7 @@ public class RegionalFragment {
         );
     }
 
-    public boolean covers(RegionalFragment r) throws FunctionException {
+    public boolean covers(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return (this.getX() <= r.getX()
             && this.getY() <= r.getY()
@@ -150,32 +150,32 @@ public class RegionalFragment {
         );
     }
 
-    public boolean disjoint(RegionalFragment r) throws FunctionException {
+    public boolean disjoint(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         return !this.overlaps(r);
     }
 
-    public RegionalFragment getIntersection(RegionalFragment r) throws FunctionException {
+    public SpatialFragment getIntersection(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
         if(!this.overlaps(r)) return null;
-        return new RegionalFragment(this.getUnit(),
+        return new SpatialFragment(this.getUnit(),
                 Math.max(this.getX(),r.getX()),
                 Math.max(this.getY(), r.getY()),
                 Math.min(this.getX() + this.getW(), r.getX() + r.getW()) - Math.max(this.getX(),r.getX()),
                 Math.min(this.getY() + this.getH(), r.getY() + r.getH()) - Math.max(this.getY(), r.getY()));
     }
 
-    public RegionalFragment getBoundingBox(RegionalFragment r) throws FunctionException {
+    public SpatialFragment getBoundingBox(SpatialFragment r) throws FunctionException {
         assertComparable(this, r);
-        return new RegionalFragment(this.getUnit(),
+        return new SpatialFragment(this.getUnit(),
                 Math.min(this.getX(), r.getX()),
                 Math.min(this.getY(), r.getY()),
                 Math.max(this.getX() + this.getW(), r.getX() + r.getW()),
                 Math.max(this.getY() + this.getH(), r.getY() + r.getH()));
     }
 
-    private boolean assertComparable(RegionalFragment r1, RegionalFragment r2) throws FunctionException {
+    private boolean assertComparable(SpatialFragment r1, SpatialFragment r2) throws FunctionException {
         if(r1.getUnit() == r2.getUnit()) return true;
-        else throw new FunctionException("regional fragments are not comparable");
+        else throw new FunctionException("spatial fragments are not comparable");
     }
 }

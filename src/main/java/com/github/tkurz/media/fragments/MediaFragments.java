@@ -7,9 +7,9 @@ package com.github.tkurz.media.fragments;
  */
 public class MediaFragments {
 
-    private static boolean hasRegional(MediaFragmentURI... uris) {
+    private static boolean hasSpatial(MediaFragmentURI... uris) {
         for(MediaFragmentURI uri : uris) {
-            if(!uri.getMediaFragment().hasRegionalFragment()) return false;
+            if(!uri.getMediaFragment().hasSpatialFragment()) return false;
         }
         return true;
     }
@@ -31,12 +31,12 @@ public class MediaFragments {
         return true;
     }
 
-    public static boolean regionalComparable(MediaFragmentURI... uris) {
-        RegionalFragment.Unit unit = null;
+    public static boolean spatialComparable(MediaFragmentURI... uris) {
+        SpatialFragment.Unit unit = null;
         for(MediaFragmentURI uri : uris) {
-            if(!uri.getMediaFragment().hasRegionalFragment()) return false;
-            if(unit == null) { unit = uri.getMediaFragment().getRegionalFragment().getUnit(); }
-            else if(unit != uri.getMediaFragment().getRegionalFragment().getUnit()) return false;
+            if(!uri.getMediaFragment().hasSpatialFragment()) return false;
+            if(unit == null) { unit = uri.getMediaFragment().getSpatialFragment().getUnit(); }
+            else if(unit != uri.getMediaFragment().getSpatialFragment().getUnit()) return false;
         }
         return true;
     }

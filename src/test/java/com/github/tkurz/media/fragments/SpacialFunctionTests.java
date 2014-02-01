@@ -8,20 +8,20 @@ import org.junit.Test;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class RegionFunctionTests {
+public class SpacialFunctionTests {
 
-    RegionalFragment r1;
-    RegionalFragment r2;
-    RegionalFragment r3;
-    RegionalFragment r4;
-    RegionalFragment r5;
+    SpatialFragment r1;
+    SpatialFragment r2;
+    SpatialFragment r3;
+    SpatialFragment r4;
+    SpatialFragment r5;
 
-    public RegionFunctionTests() throws MediaFragmentURISyntaxException {
-        r1 = (new MediaFragmentURI("http://example.org/video#xywh=0,0,20,20")).getMediaFragment().getRegionalFragment();
-        r2 = (new MediaFragmentURI("http://example.org/video#xywh=10,10,20,20")).getMediaFragment().getRegionalFragment();
-        r3 = (new MediaFragmentURI("http://example.org/video#xywh=100,100,20,20")).getMediaFragment().getRegionalFragment();
-        r4 = (new MediaFragmentURI("http://example.org/video#xywh=percent:0,0,20,20")).getMediaFragment().getRegionalFragment();
-        r5 = (new MediaFragmentURI("http://example.org/video#xywh=5,5,5,5")).getMediaFragment().getRegionalFragment();
+    public SpacialFunctionTests() throws MediaFragmentURISyntaxException {
+        r1 = (new MediaFragmentURI("http://example.org/video#xywh=0,0,20,20")).getMediaFragment().getSpatialFragment();
+        r2 = (new MediaFragmentURI("http://example.org/video#xywh=10,10,20,20")).getMediaFragment().getSpatialFragment();
+        r3 = (new MediaFragmentURI("http://example.org/video#xywh=100,100,20,20")).getMediaFragment().getSpatialFragment();
+        r4 = (new MediaFragmentURI("http://example.org/video#xywh=percent:0,0,20,20")).getMediaFragment().getSpatialFragment();
+        r5 = (new MediaFragmentURI("http://example.org/video#xywh=5,5,5,5")).getMediaFragment().getSpatialFragment();
     }
 
     @Test
@@ -82,7 +82,7 @@ public class RegionFunctionTests {
 
     @Test
     public void testGetIntersection() throws FunctionException {
-        RegionalFragment f = r1.getIntersection(r2);
+        SpatialFragment f = r1.getIntersection(r2);
         Assert.assertEquals(10.0,f.getX());
         Assert.assertEquals(10.0,f.getY());
         Assert.assertEquals(10.0,f.getW());
@@ -91,12 +91,12 @@ public class RegionFunctionTests {
 
     @Test(expected = FunctionException.class)
     public void testGetIntersectionFail() throws FunctionException {
-        RegionalFragment f = r1.getIntersection(r4);
+        SpatialFragment f = r1.getIntersection(r4);
     }
 
     @Test
     public void testGetBoundingBox() throws FunctionException {
-        RegionalFragment f = r1.getBoundingBox(r3);
+        SpatialFragment f = r1.getBoundingBox(r3);
         Assert.assertEquals(0.0,f.getX());
         Assert.assertEquals(0.0,f.getY());
         Assert.assertEquals(120.0,f.getW());
