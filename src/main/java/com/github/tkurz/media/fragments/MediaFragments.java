@@ -32,16 +32,39 @@ public class MediaFragments {
     }
 
     /**
+     * test if fragments are comparable regarding uri
+     * @param uris a set of uris
+     * @return true if absolute uri paths are equal
+     */
+    public static boolean uriComparable(MediaFragmentURI... uris) {
+        String absolutePath = null;
+        for(MediaFragmentURI uri : uris) {
+            if(absolutePath == null) {
+                absolutePath = uri.getAbsolutePath();
+            } else if(!absolutePath.equals(uri.getAbsolutePath())) return false;
+        }
+        return true;
+    }
+
+    /**
      * test if fragments are temporal comparable
      * @param uris a set of uris
      * @return true if media fragments has temporal fragments and their temporal units are equal
      */
     public static boolean temporalComparable(MediaFragmentURI... uris) {
         TemporalFragment.Unit unit = null;
+        String absolutePath = null;
+
         for(MediaFragmentURI uri : uris) {
             if(!uri.getMediaFragment().hasTemporalFragment()) return false;
-            if(unit == null) { unit = uri.getMediaFragment().getTemporalFragment().getUnit(); }
-            else if(unit != uri.getMediaFragment().getTemporalFragment().getUnit()) return false;
+
+            if(absolutePath == null) {
+                absolutePath = uri.getAbsolutePath();
+            } else if(!absolutePath.equals(uri.getAbsolutePath())) return false;
+
+            if(unit == null) {
+                unit = uri.getMediaFragment().getTemporalFragment().getUnit();
+            } else if(unit != uri.getMediaFragment().getTemporalFragment().getUnit()) return false;
         }
         return true;
     }
@@ -53,8 +76,15 @@ public class MediaFragments {
      */
     public static boolean spatialComparable(MediaFragmentURI... uris) {
         SpatialFragment.Unit unit = null;
+        String absolutePath = null;
+
         for(MediaFragmentURI uri : uris) {
             if(!uri.getMediaFragment().hasSpatialFragment()) return false;
+
+            if(absolutePath == null) {
+                absolutePath = uri.getAbsolutePath();
+            } else if(!absolutePath.equals(uri.getAbsolutePath())) return false;
+
             if(unit == null) { unit = uri.getMediaFragment().getSpatialFragment().getUnit(); }
             else if(unit != uri.getMediaFragment().getSpatialFragment().getUnit()) return false;
         }
