@@ -33,6 +33,27 @@ public class MediaFragmentURI {
         }
     }
 
+    public String getScheme() {
+        return uri.getScheme();
+    }
+
+    public String getAuthority() {
+        return uri.getAuthority();
+    }
+
+    public String getPath() {
+        return uri.getPath();
+    }
+
+    public String getAbsolutePath() {
+        StringBuilder b = new StringBuilder();
+        b.append(uri.getScheme());
+        b.append("://");
+        b.append(uri.getAuthority());
+        b.append(uri.getPath());
+        return b.toString();
+    }
+
     /**
      * returns the media fragment
      * @return a media fragment
@@ -42,16 +63,6 @@ public class MediaFragmentURI {
     }
 
     public String toString() {
-        StringBuilder b = new StringBuilder();
-        b.append(uri.getScheme());
-        b.append("://");
-        if(uri.getAuthority() != null) b.append(uri.getAuthority());
-        if(uri.getPort() > -1) {
-            b.append(":");
-            b.append(uri.getPort());
-        }
-        b.append(uri.getPath());
-        if(mediaFragment != null) b.append(mediaFragment.toString());
-        return b.toString();
+        return mediaFragment != null ? getAbsolutePath() + mediaFragment.toString() : getAbsolutePath();
     }
 }
