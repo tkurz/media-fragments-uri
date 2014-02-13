@@ -15,6 +15,7 @@ public class TemporalFunctionTests {
     TemporalFragment f3;
     TemporalFragment f4;
     TemporalFragment f5;
+    TemporalFragment f6;
 
     public TemporalFunctionTests() throws MediaFragmentURISyntaxException {
         f1 = (new MediaFragmentURI("http://sample.org/video.mp4#t=0,10")).getMediaFragment().getTemporalFragment();
@@ -22,6 +23,7 @@ public class TemporalFunctionTests {
         f3 = (new MediaFragmentURI("http://sample.org/video.mp4#t=10,20")).getMediaFragment().getTemporalFragment();
         f4 = (new MediaFragmentURI("http://sample.org/video.mp4#t=2,3")).getMediaFragment().getTemporalFragment();
         f5 = (new MediaFragmentURI("http://sample.org/video.mp4#t=100,101")).getMediaFragment().getTemporalFragment();
+        f6 = (new MediaFragmentURI("http://sample.org/video.mp4#t=0,10")).getMediaFragment().getTemporalFragment();
     }
 
     @Test
@@ -42,6 +44,7 @@ public class TemporalFunctionTests {
     public void temporalEqualsTest() throws MediaFragmentURISyntaxException {
         Assert.assertFalse(f1.equal(f2));
         Assert.assertTrue(f1.equal(f1));
+        Assert.assertTrue(f1.equal(f6));
     }
 
 
