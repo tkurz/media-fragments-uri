@@ -50,7 +50,7 @@ public class NPTFragment implements TemporalFragment<NPTFragment> {
 
     @Override
     public boolean equal(NPTFragment f) {
-        return this.start == f.start && this.end == f.end;
+        return this.start.compareTo(f.start) == 0 && this.end.compareTo(f.end) == 0;
     }
 
     @Override
