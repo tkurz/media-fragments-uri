@@ -64,9 +64,9 @@ public class TemporalFunctionTests {
 
     @Test
     public void temporalIncludesTest() throws MediaFragmentURISyntaxException {
-        Assert.assertFalse(f1.includes(f3));
-        Assert.assertTrue(f1.includes(f4));
-        Assert.assertFalse(f4.includes(f1));
+        Assert.assertFalse(f1.covers(f3));
+        Assert.assertTrue(f1.covers(f4));
+        Assert.assertFalse(f4.covers(f1));
     }
 
     @Test

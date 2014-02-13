@@ -72,18 +72,18 @@ public class NPTFragment implements TemporalFragment<NPTFragment> {
     public boolean overlaps(NPTFragment f) {
         return this.start.compareTo(f.end) == -1  && f.end.compareTo(this.end) == -1
                 || f.start.compareTo(this.end) == -1  && this.end.compareTo(f.end) == -1
-                || this.includes(f)
-                || this.covers(f);
-    }
-
-    @Override
-    public boolean includes(NPTFragment f) {
-        return this.start.compareTo(f.start) <= 0 && this.end.compareTo(f.end) >= 0;
+                || this.covers(f)
+                || this.coveredBy(f);
     }
 
     @Override
     public boolean covers(NPTFragment f) {
-        return f.includes(this);
+        return this.start.compareTo(f.start) <= 0 && this.end.compareTo(f.end) >= 0;
+    }
+
+    @Override
+    public boolean coveredBy(NPTFragment f) {
+        return f.covers(this);
     }
 
     @Override

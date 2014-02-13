@@ -36,9 +36,9 @@ public interface TemporalFragment<T> {
 
     public boolean overlaps(T t);
 
-    public boolean includes(T t);
-
     public boolean covers(T t);
+
+    public boolean coveredBy(T t);
 
     public TemporalFragment<T> getIntersection(T t);
 
