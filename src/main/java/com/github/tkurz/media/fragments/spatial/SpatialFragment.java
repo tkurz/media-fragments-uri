@@ -6,7 +6,6 @@ import com.github.tkurz.media.fragments.functions.SpatialFunctions;
 import com.github.tkurz.media.fragments.functions.TopologicalRelations;
 
 /**
- * TODO use DE-9IM Standard http://en.wikipedia.org/wiki/Spatial_relation
  * Represents a spacial fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)

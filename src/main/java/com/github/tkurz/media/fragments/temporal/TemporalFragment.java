@@ -4,7 +4,7 @@ import com.github.tkurz.media.fragments.functions.TemporalFunctions;
 import com.github.tkurz.media.fragments.functions.TemporalRelations;
 
 /**
- * TODO: use standard for temporal relations http://web.cacs.louisiana.edu/~logan/521_f08/Doc/p832-allen.pdf
+ * Basic interface for temporal fragments
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
