@@ -26,9 +26,9 @@ public class SpacialFunctionTests {
 
     @Test
     public void testOverlap() throws MediaFragmentURISyntaxException, FunctionException {
-        Assert.assertTrue("overlap function fails",r1.overlaps(r2));
-        Assert.assertTrue("overlap function fails",r2.overlaps(r1));
-        Assert.assertFalse("overlap function fails",r1.overlaps(r3));
+        Assert.assertTrue("overlap function fails",r1.intersects(r2));
+        Assert.assertTrue("overlap function fails",r2.intersects(r1));
+        Assert.assertFalse("overlap function fails",r1.intersects(r3));
         Assert.assertTrue("disjoint function fails", r1.disjoint(r3));
     }
 

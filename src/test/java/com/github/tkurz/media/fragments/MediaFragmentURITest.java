@@ -234,15 +234,4 @@ public class MediaFragmentURITest {
         Assert.assertEquals(1,c3.compareTo(c2));
         Assert.assertEquals(0,c1.compareTo(c2));
     }
-
-    @Test
-    public void test() throws MediaFragmentURISyntaxException, FunctionException {
-
-        MediaFragmentURI uri1 = new MediaFragmentURI("http://example.org/video.mp4#t=10,20&xywh=0,0,20,20");
-        MediaFragmentURI uri2 = new MediaFragmentURI("http://example.org/video.mp4#t=30,40&xywh=percent:10,10,20,20");
-
-        System.out.println(MediaFragments.spatialComparable( uri1, uri2 )); //returns 'false'
-
-        System.out.println(MediaFragments.temporalComparable( uri1, uri2 )); //returns 'true'
-    }
 }

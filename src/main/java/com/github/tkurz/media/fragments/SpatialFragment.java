@@ -1,11 +1,16 @@
 package com.github.tkurz.media.fragments;
 
+import com.github.tkurz.media.fragments.functions.DirectionalRelations;
+import com.github.tkurz.media.fragments.functions.SpatialFunctions;
+import com.github.tkurz.media.fragments.functions.TopologicalRelations;
+
 /**
+ * TODO use DE-9IM Standard http://en.wikipedia.org/wiki/Spatial_relation
  * Represents a spacial fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class SpatialFragment {
+public class SpatialFragment implements TopologicalRelations, DirectionalRelations, SpatialFunctions {
 
     private Unit unit = Unit.PIXEL;
     private double x,y,w,h;
@@ -98,6 +103,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException
      */
+    @Override
     public boolean leftBeside(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return this.getX()+this.getW() <= spatialFragment.getX();
@@ -110,6 +116,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException
      */
+    @Override
     public boolean rightBeside(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return this.getX() >= spatialFragment.getX()+ spatialFragment.getW();
@@ -121,6 +128,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code>s are not comparable)
      */
+    @Override
     public boolean isAbove(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return this.getY()+this.getH() <= spatialFragment.getY();
@@ -132,6 +140,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code>s are not comparable)
      */
+    @Override
     public boolean isBelow(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return this.getY() >= spatialFragment.getY() + spatialFragment.getH();
@@ -143,6 +152,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code> is <code>Unit.PERCENTAGE</code>)
      */
+    @Override
     public boolean top() throws FunctionException {
         if(this.unit == Unit.PERCENT) return this.getY()+this.getH() <= 50;
         else throw new FunctionException("top is not supported for unit pixel");
@@ -154,6 +164,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code> is <code>Unit.PERCENTAGE</code>)
      */
+    @Override
     public boolean bottom() throws FunctionException {
         if(this.unit == Unit.PERCENT) return this.getY() >= 50;
         else throw new FunctionException("bottom is not supported for unit pixel");
@@ -165,6 +176,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code> is <code>Unit.PERCENTAGE</code>)
      */
+    @Override
     public boolean left() throws FunctionException {
         if(this.unit == Unit.PERCENT) return this.getX()+this.getW() <= 50;
         else throw new FunctionException("left is not supported for unit pixel");
@@ -176,6 +188,7 @@ public class SpatialFragment {
      *         <code>false</code> otherwise
      * @throws FunctionException if the function is not supported (<code>unit</code> is <code>Unit.PERCENTAGE</code>)
      */
+    @Override
     public boolean right() throws FunctionException {
         if(this.unit == Unit.PERCENT) return this.getX() >= 50;
         else throw new FunctionException("right is not supported for unit pixel");
@@ -188,12 +201,22 @@ public class SpatialFragment {
      *  not ( ( A.x + A.w <= B.x ) or ( B.x + B.w <= A.x ) or ( A.y + A.h <= B.y  ) or (B.y + B.h <= A.y ) )
      * @throws FunctionException if the function is not supported (<code>unit</code>s are not comparable)
      */
-    public boolean overlaps(SpatialFragment spatialFragment) throws FunctionException {
+    @Override
+    public boolean intersects(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return !(this.getX()+this.getW() <= spatialFragment.getX()
             || spatialFragment.getX() + spatialFragment.getW() <= this.getX()
             || this.getY()+this.getH() <= spatialFragment.getY()
             || spatialFragment.getY() + spatialFragment.getH() <= this.getY()
+        );
+    }
+
+    @Override
+    public boolean touches(SpatialFragment s) {
+        return (this.getX()+ this.getW() == s.getX()
+            || this.getY() + this.getH() == s.getY()
+            || this.getX() == s.getX() + s.getW()
+            || this.getY() == s.getY() + s.getH()
         );
     }
 
@@ -204,6 +227,7 @@ public class SpatialFragment {
      * ( A.x <= B.x ) and ( A.y <= B.y ) and ( A.x + A.w <= B.x + B.w ) and ( A.x + A.w <= B.x + B.w )
      * @throws FunctionException if the function is not supported (<code>unit</code>s are not comparable)
      */
+    @Override
     public boolean covers(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
         return (this.getX() <= spatialFragment.getX()
@@ -213,16 +237,25 @@ public class SpatialFragment {
         );
     }
 
+    @Override
+    public boolean equal(SpatialFragment s) {
+        return (this.getX() == s.getW()
+            && this.getY() == s.getY()
+            && this.getW() == s.getW()
+            && this.getH() == s.getH()
+        );
+    }
+
     /**
      * tests spatial relation
      * @param spatialFragment a spacialFragment this object should be compared with
      * @param spatialFragment a spacialFragment this object should be compared with
-     * @return the opposite of {@link #overlaps(SpatialFragment)}
+     * @return the opposite of {@link #intersects(SpatialFragment)}
      * @throws FunctionException if the function is not supported (<code>unit</code>s are not comparable)
      */
     public boolean disjoint(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
-        return !this.overlaps(spatialFragment);
+        return !this.intersects(spatialFragment);
     }
 
     /**
@@ -239,7 +272,7 @@ public class SpatialFragment {
      */
     public SpatialFragment getIntersection(SpatialFragment spatialFragment) throws FunctionException {
         assertComparable(this, spatialFragment);
-        if(!this.overlaps(spatialFragment)) return null;
+        if(!this.intersects(spatialFragment)) return null;
         return new SpatialFragment(this.getUnit(),
                 Math.max(this.getX(), spatialFragment.getX()),
                 Math.max(this.getY(), spatialFragment.getY()),

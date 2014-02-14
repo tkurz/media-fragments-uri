@@ -64,14 +64,14 @@ public class TemporalFunctionTests {
 
     @Test
     public void temporalIncludesTest() throws MediaFragmentURISyntaxException {
-        Assert.assertFalse(f1.covers(f3));
-        Assert.assertTrue(f1.covers(f4));
-        Assert.assertFalse(f4.covers(f1));
+        Assert.assertFalse(f1.contains(f3));
+        Assert.assertTrue(f1.contains(f4));
+        Assert.assertFalse(f4.contains(f1));
     }
 
     @Test
     public void temporalIntersectionTest() throws MediaFragmentURISyntaxException {
-        TemporalFragment tf1 = f1.getIntersection(f4);
+        TemporalFragment tf1 = f2.getIntersection(f1);
 
         Assert.assertTrue(tf1 instanceof NPTFragment);
 

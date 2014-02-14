@@ -1,11 +1,14 @@
 package com.github.tkurz.media.fragments;
 
+import com.github.tkurz.media.fragments.functions.TemporalFunctions;
+import com.github.tkurz.media.fragments.functions.TemporalRelations;
+
 /**
- * ...
+ * TODO: use standard for temporal relations http://web.cacs.louisiana.edu/~logan/521_f08/Doc/p832-allen.pdf
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public interface TemporalFragment<T> {
+public interface TemporalFragment<T> extends TemporalRelations<T>, TemporalFunctions<T> {
 
     /**
      * temporal units; at the moment only npt is supported
@@ -25,26 +28,4 @@ public interface TemporalFragment<T> {
     }
 
     public Unit getUnit();
-
-    public boolean equal(T t);
-
-    public boolean after(T t);
-
-    public boolean before(T t);
-
-    public boolean meets(T t);
-
-    public boolean overlaps(T t);
-
-    public boolean covers(T t);
-
-    public boolean coveredBy(T t);
-
-    public TemporalFragment<T> getIntersection(T t);
-
-    public TemporalFragment<T> getUnion(T t);
-
-    public TemporalFragment<T> getIntermediate(T t);
-
-    public TemporalFragment<T> getBoundingBox(T t);
 }
