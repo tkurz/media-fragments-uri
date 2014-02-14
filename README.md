@@ -83,7 +83,7 @@ Spatial Functions
     SpatialFragment r1 = uri1.getMediaFragment().getSpatialFragment();
     SpatialFragment r2 = uri2.getMediaFragment().getSpatialFragment();
 
-    System.out.println(r1.overlaps(r2)); //prints 'true'
+    System.out.println(r1.intersects(r2)); //prints 'true'
 
     System.out.println(r1.getBoundingBox(r2)); //prints 'xywh=0,0,30,30'
 
