@@ -1,4 +1,4 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.temporal;
 
 /**
  * Represents a temporal fragment in 'Normal Play Time' (npt) like specified in RFC 2326.

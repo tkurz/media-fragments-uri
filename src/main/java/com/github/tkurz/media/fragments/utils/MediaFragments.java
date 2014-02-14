@@ -1,4 +1,8 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.utils;
+
+import com.github.tkurz.media.fragments.base.MediaFragmentURI;
+import com.github.tkurz.media.fragments.spatial.SpatialFragment;
+import com.github.tkurz.media.fragments.temporal.TemporalFragment;
 
 /**
  * Utilization methods for media fragments

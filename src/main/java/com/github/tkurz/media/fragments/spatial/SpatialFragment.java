@@ -1,5 +1,6 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.spatial;
 
+import com.github.tkurz.media.fragments.exceptions.FunctionException;
 import com.github.tkurz.media.fragments.functions.DirectionalRelations;
 import com.github.tkurz.media.fragments.functions.SpatialFunctions;
 import com.github.tkurz.media.fragments.functions.TopologicalRelations;
@@ -101,7 +102,7 @@ public class SpatialFragment implements TopologicalRelations, DirectionalRelatio
      * @param spatialFragment a spatial fragment
      * @return <code>true</code>, if this object <code>A</code> is left beside <code>spatialFragment B</code> (A.rightBound left_beside B.leftBound),
      *         <code>false</code> otherwise
-     * @throws FunctionException
+     * @throws com.github.tkurz.media.fragments.exceptions.FunctionException
      */
     @Override
     public boolean leftBeside(SpatialFragment spatialFragment) throws FunctionException {

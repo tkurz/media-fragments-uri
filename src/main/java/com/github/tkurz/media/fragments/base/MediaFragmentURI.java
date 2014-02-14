@@ -1,4 +1,8 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.base;
+
+import com.github.tkurz.media.fragments.FragmentParser;
+import com.github.tkurz.media.fragments.ParseException;
+import com.github.tkurz.media.fragments.exceptions.MediaFragmentURISyntaxException;
 
 import java.io.StringReader;
 import java.net.URI;
@@ -17,7 +21,7 @@ public class MediaFragmentURI {
     /**
      * Creates a media fragment from string. If no fragment is specified, an empty media fragment is created
      * @param uri_string a uri (may have media fragments)
-     * @throws MediaFragmentURISyntaxException
+     * @throws com.github.tkurz.media.fragments.exceptions.MediaFragmentURISyntaxException
      */
     public MediaFragmentURI(String uri_string) throws MediaFragmentURISyntaxException {
         try {

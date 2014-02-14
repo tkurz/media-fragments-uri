@@ -16,6 +16,10 @@ options {
 PARSER_BEGIN(FragmentParser)
 package com.github.tkurz.media.fragments;
 
+import com.github.tkurz.media.fragments.base.*;
+import com.github.tkurz.media.fragments.spatial.*;
+import com.github.tkurz.media.fragments.temporal.*;
+
 public class FragmentParser {
 
 }

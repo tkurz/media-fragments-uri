@@ -1,5 +1,11 @@
 package com.github.tkurz.media.fragments;
 
+import com.github.tkurz.media.fragments.base.MediaFragment;
+import com.github.tkurz.media.fragments.base.MediaFragmentURI;
+import com.github.tkurz.media.fragments.exceptions.MediaFragmentURISyntaxException;
+import com.github.tkurz.media.fragments.spatial.SpatialFragment;
+import com.github.tkurz.media.fragments.temporal.Clocktime;
+import com.github.tkurz.media.fragments.temporal.NPTFragment;
 import junit.framework.Assert;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.temporal;
 
 import com.github.tkurz.media.fragments.functions.TemporalFunctions;
 import com.github.tkurz.media.fragments.functions.TemporalRelations;

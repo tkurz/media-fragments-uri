@@ -1,4 +1,4 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.temporal;
 
 /**
  * Represents clocktime as double value

@@ -1,4 +1,7 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.base;
+
+import com.github.tkurz.media.fragments.spatial.SpatialFragment;
+import com.github.tkurz.media.fragments.temporal.TemporalFragment;
 
 import java.util.HashSet;
 import java.util.Iterator;

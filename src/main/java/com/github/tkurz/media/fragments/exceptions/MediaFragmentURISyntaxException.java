@@ -1,4 +1,4 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.exceptions;
 
 /**
  * Is thrown if a uri cannot be parsed to media fragment

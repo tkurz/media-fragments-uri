@@ -1,7 +1,7 @@
 package com.github.tkurz.media.fragments.functions;
 
-import com.github.tkurz.media.fragments.FunctionException;
-import com.github.tkurz.media.fragments.SpatialFragment;
+import com.github.tkurz.media.fragments.exceptions.FunctionException;
+import com.github.tkurz.media.fragments.spatial.SpatialFragment;
 
 /**
  * ...

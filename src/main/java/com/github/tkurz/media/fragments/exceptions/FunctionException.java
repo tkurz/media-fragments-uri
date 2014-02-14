@@ -1,4 +1,4 @@
-package com.github.tkurz.media.fragments;
+package com.github.tkurz.media.fragments.exceptions;
 
 /**
  * Spacial and regional functions throw this exception

@@ -1,6 +1,6 @@
 package com.github.tkurz.media.fragments.functions;
 
-import com.github.tkurz.media.fragments.TemporalFragment;
+import com.github.tkurz.media.fragments.temporal.TemporalFragment;
 
 /**
  * Temporal functions create new temporal fragments out from existing ones
