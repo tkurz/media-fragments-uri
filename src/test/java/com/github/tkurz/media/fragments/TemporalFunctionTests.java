@@ -106,22 +106,6 @@ public class TemporalFunctionTests {
     }
 
     @Test
-    public void temporalUnionTest() throws MediaFragmentURISyntaxException {
-        TemporalFragment tf1 = f1.getUnion(f2);
-
-        Assert.assertTrue(tf1 instanceof NPTFragment);
-
-        NPTFragment ntf = (NPTFragment) tf1;
-
-        Assert.assertEquals(0.0, ntf.getStart().getValue());
-        Assert.assertEquals(15.0, ntf.getEnd().getValue());
-
-        TemporalFragment tf2 = f1.getUnion(f5);
-
-        Assert.assertNull(tf2);
-    }
-
-    @Test
     public void temporalBoundingBoxTest() throws MediaFragmentURISyntaxException {
         TemporalFragment tf1 = f3.getBoundingBox(f5);
 

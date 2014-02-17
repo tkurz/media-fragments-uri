@@ -100,14 +100,6 @@ public class NPTFragment implements TemporalFragment<NPTFragment> {
     }
 
     @Override
-    public TemporalFragment<NPTFragment> getUnion(NPTFragment f) {
-        if(this.overlaps(f)) {
-            return this.getBoundingBox(f);
-        }
-        return null;
-    }
-
-    @Override
     public TemporalFragment<NPTFragment> getIntermediate(NPTFragment f) {
         if(this.overlaps(f)) return null;
 

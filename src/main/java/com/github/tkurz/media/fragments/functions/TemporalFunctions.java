@@ -11,8 +11,6 @@ public interface TemporalFunctions<T> {
 
     public TemporalFragment<T> getIntersection(T t);
 
-    public TemporalFragment<T> getUnion(T t);
-
     public TemporalFragment<T> getIntermediate(T t);
 
     public TemporalFragment<T> getBoundingBox(T t);
