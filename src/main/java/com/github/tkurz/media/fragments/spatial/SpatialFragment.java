@@ -239,7 +239,7 @@ public class SpatialFragment implements TopologicalRelations, DirectionalRelatio
 
     @Override
     public boolean equal(SpatialFragment s) {
-        return (this.getX() == s.getW()
+        return (this.getX() == s.getX()
             && this.getY() == s.getY()
             && this.getW() == s.getW()
             && this.getH() == s.getH()
