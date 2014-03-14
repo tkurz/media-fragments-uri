@@ -297,8 +297,8 @@ public class SpatialFragment implements TopologicalRelations, DirectionalRelatio
         return new SpatialFragment(this.getUnit(),
                 Math.min(this.getX(), spatialFragment.getX()),
                 Math.min(this.getY(), spatialFragment.getY()),
-                Math.max(this.getX() + this.getW(), spatialFragment.getX() + spatialFragment.getW()),
-                Math.max(this.getY() + this.getH(), spatialFragment.getY() + spatialFragment.getH()));
+                Math.max(this.getX() + this.getW(), spatialFragment.getX() + spatialFragment.getW()) - Math.min(this.getX(), spatialFragment.getX()),
+                Math.max(this.getY() + this.getH(), spatialFragment.getY() + spatialFragment.getH()) - Math.min(this.getY(), spatialFragment.getY()));
     }
 
     private boolean assertComparable(SpatialFragment spatialFragment1, SpatialFragment spatialFragment2) throws FunctionException {
