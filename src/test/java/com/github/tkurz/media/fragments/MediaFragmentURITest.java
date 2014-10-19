@@ -232,11 +232,17 @@ public class MediaFragmentURITest {
 
     @Test
     public void testURIParser() throws MediaFragmentURISyntaxException {
-        MediaFragmentURI u1 = new MediaFragmentURI("http://example.org/video.mp4#t=10,20");
-        MediaFragmentURI u2 = new MediaFragmentURI("http://example.org/video.mp4?t=10,20");
+        String s1 = "http://example.org/video.mp4#t=10,20";
+        String s2 = "http://example.org/video.mp4?t=10,20";
+        MediaFragmentURI u1 = new MediaFragmentURI(s1);
+        MediaFragmentURI u2 = new MediaFragmentURI(s2);
 
         Assert.assertEquals(10D, ((NPTFragment)u1.getMediaFragment().getTemporalFragment()).getStart().getValue());
         Assert.assertEquals(10D, ((NPTFragment)u2.getMediaFragment().getTemporalFragment()).getStart().getValue());
+
+        Assert.assertEquals(s1, u1.toString());
+        Assert.assertEquals(s2, u2.toString());
+
     }
 
     @Test
