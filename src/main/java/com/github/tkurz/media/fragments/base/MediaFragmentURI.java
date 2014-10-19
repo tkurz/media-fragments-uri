@@ -29,6 +29,9 @@ public class MediaFragmentURI {
             if(uri.getFragment() != null) {
                 FragmentParser p1 = new FragmentParser(new StringReader(uri.getFragment()));
                 mediaFragment = p1.run();
+            } else if(uri.getQuery() != null) {
+                FragmentParser p1 = new FragmentParser(new StringReader(uri.getQuery()));
+                mediaFragment = p1.run();
             } else {
                 mediaFragment = new MediaFragment();
             }

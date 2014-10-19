@@ -231,6 +231,15 @@ public class MediaFragmentURITest {
     }
 
     @Test
+    public void testURIParser() throws MediaFragmentURISyntaxException {
+        MediaFragmentURI u1 = new MediaFragmentURI("http://example.org/video.mp4#t=10,20");
+        MediaFragmentURI u2 = new MediaFragmentURI("http://example.org/video.mp4?t=10,20");
+
+        Assert.assertEquals(10D, ((NPTFragment)u1.getMediaFragment().getTemporalFragment()).getStart().getValue());
+        Assert.assertEquals(10D, ((NPTFragment)u2.getMediaFragment().getTemporalFragment()).getStart().getValue());
+    }
+
+    @Test
     public void compareClocktime() {
         Clocktime c1 = new Clocktime(0);
         Clocktime c2 = new Clocktime(0);
