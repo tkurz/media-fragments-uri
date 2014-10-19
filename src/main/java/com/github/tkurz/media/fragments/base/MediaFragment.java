@@ -60,18 +60,23 @@ public class MediaFragment {
     }
 
     public String toString() {
-        if(id!=null) return "#id="+id;
+        return toString(true);
+    }
+
+    public String toString(boolean hashFragment) {
+        String separator = hashFragment ? "#" : "?";
+        if(id!=null) return separator + "id="+id;
         Set<String> set = new HashSet<>();
         if(track!=null) set.add("track="+track);
         if(temporalFragment!=null) set.add(temporalFragment.toString());
         if(spatialFragment !=null) set.add(spatialFragment.toString());
-        return join(set);
+        return join(set,separator);
     }
 
-    private String join(Set set) {
+    private String join(Set set, String separator) {
         StringBuilder b = new StringBuilder();
         Iterator<Set> iterator = set.iterator();
-        if(iterator.hasNext()) b.append("#");
+        if(iterator.hasNext()) b.append(separator);
         while(iterator.hasNext()) {
             b.append(iterator.next());
             if(iterator.hasNext()) b.append("&");
