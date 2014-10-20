@@ -18,7 +18,7 @@ public class MediaFragmentURI {
     private URI uri;
     private MediaFragment mediaFragment;
 
-    private boolean hashFragment = true;
+    private boolean hashFragment = false; //TODO fix
 
     /**
      * Creates a media fragment from string. If no fragment is specified, an empty media fragment is created
@@ -31,6 +31,7 @@ public class MediaFragmentURI {
             if(uri.getFragment() != null) {
                 FragmentParser p1 = new FragmentParser(new StringReader(uri.getFragment()));
                 mediaFragment = p1.run();
+                hashFragment = true;
             } else if(uri.getQuery() != null) {
                 FragmentParser p1 = new FragmentParser(new StringReader(uri.getQuery()));
                 mediaFragment = p1.run();
