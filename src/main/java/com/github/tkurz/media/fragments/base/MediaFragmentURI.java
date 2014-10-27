@@ -18,7 +18,7 @@ public class MediaFragmentURI {
     private URI uri;
     private MediaFragment mediaFragment;
 
-    private boolean hashFragment = false; //TODO fix
+    private boolean hashFragment = true;
 
     /**
      * Creates a media fragment from string. If no fragment is specified, an empty media fragment is created
