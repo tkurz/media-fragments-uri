@@ -60,11 +60,11 @@ public class MediaFragment {
     }
 
     public String toString() {
-        return toString(true);
+        return toString(MediaFragmentURI.DEFAULT_TYPE);
     }
 
-    public String toString(boolean hashFragment) {
-        String separator = hashFragment ? "#" : "?";
+    public String toString(MediaFragmentURI.Type type) {
+        String separator = type.getDelimiter();
         if(id!=null) return separator + "id="+id;
         Set<String> set = new HashSet<>();
         if(track!=null) set.add("track="+track);
