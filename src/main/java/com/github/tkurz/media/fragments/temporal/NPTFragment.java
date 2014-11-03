@@ -6,7 +6,7 @@ package com.github.tkurz.media.fragments.temporal;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class NPTFragment implements TemporalFragment<NPTFragment> {
+public class NPTFragment extends TemporalFragment<NPTFragment> {
 
     private Clocktime start;
     private Clocktime end;
