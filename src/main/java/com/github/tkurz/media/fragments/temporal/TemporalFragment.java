@@ -1,14 +1,11 @@
 package com.github.tkurz.media.fragments.temporal;
 
-import com.github.tkurz.media.fragments.functions.TemporalFunctions;
-import com.github.tkurz.media.fragments.functions.TemporalRelations;
-
 /**
  * Basic interface for temporal fragments
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public interface TemporalFragment<T> extends TemporalRelations<T>, TemporalFunctions<T> {
+public abstract class TemporalFragment<T> {
 
     /**
      * temporal units; at the moment only npt is supported
@@ -27,5 +24,6 @@ public interface TemporalFragment<T> extends TemporalRelations<T>, TemporalFunct
         }
     }
 
-    public Unit getUnit();
+    public abstract Unit getUnit();
+
 }
