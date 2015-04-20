@@ -1,8 +1,11 @@
 package com.github.tkurz.media.fragments.base;
 
+import com.github.tkurz.media.fragments.FragmentParser;
+import com.github.tkurz.media.fragments.ParseException;
 import com.github.tkurz.media.fragments.spatial.SpatialFragment;
 import com.github.tkurz.media.fragments.temporal.TemporalFragment;
 
+import java.io.StringReader;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -14,10 +17,60 @@ import java.util.Set;
  */
 public class MediaFragment {
 
+    public static final Type DEFAULT_TYPE = Type.FRAGMENT;
+
+    public enum Type {
+        FRAGMENT("#"), QUERY("?"), ;
+
+        private String delimiter;
+
+        Type(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        public String getDelimiter() {
+            return delimiter;
+        }
+    }
+
+    public Type type;
     private String id;
     private String track;
     private TemporalFragment temporalFragment;
     private SpatialFragment spatialFragment;
+
+    public static MediaFragment create(String s) throws ParseException {
+        Type _type = DEFAULT_TYPE;
+
+        if(s.startsWith("?")) {
+            _type = Type.QUERY;
+            s = s.substring(1);
+        }
+
+        if(s.startsWith("#")) {
+            _type = Type.FRAGMENT;
+            s = s.substring(1);
+        }
+
+        FragmentParser p1 = new FragmentParser(new StringReader(s));
+        return p1.run(_type);
+    }
+
+    public MediaFragment(){
+        type = DEFAULT_TYPE;
+    }
+
+    public MediaFragment(Type type) {
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 
     public boolean hasId() {return id!=null;}
 
@@ -60,10 +113,6 @@ public class MediaFragment {
     }
 
     public String toString() {
-        return toString(MediaFragmentURI.DEFAULT_TYPE);
-    }
-
-    public String toString(MediaFragmentURI.Type type) {
         String separator = type.getDelimiter();
         if(id!=null) return separator + "id="+id;
         Set<String> set = new HashSet<>();

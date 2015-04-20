@@ -88,8 +88,8 @@ String utf8string() :
  {return b.toString();}
 }
 
-MediaFragment run() :
-{MediaFragment m = new MediaFragment();}
+MediaFragment run(MediaFragment.Type type) :
+{MediaFragment m = new MediaFragment(type);}
 {
     mediasegment(m)
     <EOF>
@@ -211,16 +211,12 @@ void xywhdef(MediaFragment m) :
 }
 
 SpatialFragment xywhparam() :
-{SpatialFragment f = new SpatialFragment();Token t=null;SpatialFragment.Unit u; double x,y,w,h;}
+{Token t=null;SpatialFragment.Unit u; double x,y,w,h;}
 {
     ( t=<XYWHUNIT> <COLON> )? x=number() <COMMA> y=number() <COMMA> w=number() <COMMA> h=number()
     {
-        if(t!=null) f.setUnit( SpatialFragment.Unit.valueOf(t.image.toUpperCase()) );
-        f.setX(x);
-        f.setY(y);
-        f.setW(w);
-        f.setH(h);
-        return f;
+        if(t!=null) return new SpatialFragment( SpatialFragment.Unit.valueOf(t.image.toUpperCase()),x, y, w, h);
+        else return new SpatialFragment(x, y, w, h);
     }
 }
 

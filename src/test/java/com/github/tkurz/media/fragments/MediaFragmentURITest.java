@@ -23,7 +23,7 @@ public class MediaFragmentURITest {
 
         final String fragment = "id=Cap%C3%ADtulo%202";
         FragmentParser p = new FragmentParser(new StringReader(fragment));
-        MediaFragment mediaFragment = p.run();
+        MediaFragment mediaFragment = p.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("id is not properly parsed",mediaFragment.hasId());
         Assert.assertEquals("id is not properly parsed","Cap%C3%ADtulo%202",mediaFragment.getId());
@@ -34,7 +34,7 @@ public class MediaFragmentURITest {
     public void parseTrackFragment() throws ParseException {
         final String fragment = "track=audio";
         FragmentParser p = new FragmentParser(new StringReader(fragment));
-        MediaFragment mediaFragment = p.run();
+        MediaFragment mediaFragment = p.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("track is not properly parsed",mediaFragment.hasTrack());
         Assert.assertEquals("track is not properly parsed","audio",mediaFragment.getTrack());
@@ -44,7 +44,7 @@ public class MediaFragmentURITest {
     public void parseSpatialFragmentPixel1() throws ParseException {
         final String region = "xywh=160,120,320,240";
         FragmentParser p = new FragmentParser(new StringReader(region));
-        MediaFragment mediaFragment = p.run();
+        MediaFragment mediaFragment = p.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
         Assert.assertEquals("region parsed properly", region, mediaFragment.getSpatialFragment().toString());
@@ -54,7 +54,7 @@ public class MediaFragmentURITest {
     public void parseSpatialFragmentPixel2() throws ParseException {
         final String region = "xywh=pixel:160,120,320,240";
         FragmentParser p = new FragmentParser(new StringReader(region));
-        MediaFragment mediaFragment = p.run();
+        MediaFragment mediaFragment = p.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
         Assert.assertEquals("region parsed properly", "xywh=160,120,320,240", mediaFragment.getSpatialFragment().toString());
@@ -64,7 +64,7 @@ public class MediaFragmentURITest {
     public void parseSpatialFragmentPercent() throws ParseException {
         final String region = "xywh=percent:25,25,50,50";
         FragmentParser p = new FragmentParser(new StringReader(region));
-        MediaFragment mediaFragment = p.run();
+        MediaFragment mediaFragment = p.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
         Assert.assertEquals("region parsed properly", region, mediaFragment.getSpatialFragment().toString());
@@ -78,7 +78,7 @@ public class MediaFragmentURITest {
         final String t4 = "t=npt:10,20";
 
         FragmentParser p1 = new FragmentParser(new StringReader(t1));
-        MediaFragment m1 = p1.run();
+        MediaFragment m1 = p1.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m1.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m1.getTemporalFragment() instanceof NPTFragment);
@@ -87,7 +87,7 @@ public class MediaFragmentURITest {
         Assert.assertEquals("npt start value is not properly parsed", 10.0, nptf1.getStart().getValue());
         Assert.assertEquals("npt end value is not properly parsed",20.0,nptf1.getEnd().getValue());
         FragmentParser p2 = new FragmentParser(new StringReader(t2));
-        MediaFragment m2 = p2.run();
+        MediaFragment m2 = p2.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m2.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m2.getTemporalFragment() instanceof NPTFragment);
@@ -97,7 +97,7 @@ public class MediaFragmentURITest {
         Assert.assertEquals("npt end value is not properly parsed",20.0,nptf2.getEnd().getValue());
 
         FragmentParser p3 = new FragmentParser(new StringReader(t3));
-        MediaFragment m3 = p3.run();
+        MediaFragment m3 = p3.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m3.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m3.getTemporalFragment() instanceof NPTFragment);
@@ -107,7 +107,7 @@ public class MediaFragmentURITest {
         Assert.assertEquals("npt end value is not properly parsed",Double.POSITIVE_INFINITY,nptf3.getEnd().getValue());
 
         FragmentParser p4 = new FragmentParser(new StringReader(t4));
-        MediaFragment m4 = p4.run();
+        MediaFragment m4 = p4.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m4.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m4.getTemporalFragment() instanceof NPTFragment);
@@ -125,7 +125,7 @@ public class MediaFragmentURITest {
         String t3="t=npt:120,0:02:01.5";
 
         FragmentParser p1 = new FragmentParser(new StringReader(t1));
-        MediaFragment m1 = p1.run();
+        MediaFragment m1 = p1.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m1.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m1.getTemporalFragment() instanceof NPTFragment);
@@ -135,7 +135,7 @@ public class MediaFragmentURITest {
         Assert.assertEquals("npt end value is not properly parsed",121.5,nptf1.getEnd().getValue());
 
         FragmentParser p2 = new FragmentParser(new StringReader(t2));
-        MediaFragment m2 = p2.run();
+        MediaFragment m2 = p2.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m2.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m2.getTemporalFragment() instanceof NPTFragment);
@@ -145,7 +145,7 @@ public class MediaFragmentURITest {
         Assert.assertEquals("npt end value is not properly parsed",121.5,nptf2.getEnd().getValue());
 
         FragmentParser p3 = new FragmentParser(new StringReader(t3));
-        MediaFragment m3 = p3.run();
+        MediaFragment m3 = p3.run(MediaFragment.Type.FRAGMENT);
 
         Assert.assertTrue("npt is not parsed properly",m3.hasTemporalFragment());
         Assert.assertTrue("npt is not parsed properly",m3.getTemporalFragment() instanceof NPTFragment);
@@ -161,7 +161,7 @@ public class MediaFragmentURITest {
         String t = "t=smpte:10:10:10,11:11:11";
 
         FragmentParser p1 = new FragmentParser(new StringReader(t));
-        p1.run();
+        p1.run(MediaFragment.Type.FRAGMENT);
     }
 
     @Test(expected = ParseException.class)
@@ -169,7 +169,7 @@ public class MediaFragmentURITest {
         String t = "t=abc:1,2,3";
 
         FragmentParser p1 = new FragmentParser(new StringReader(t));
-        p1.run();
+        p1.run(MediaFragment.Type.FRAGMENT);
     }
 
     @Test
@@ -242,5 +242,16 @@ public class MediaFragmentURITest {
         Assert.assertEquals(-1, c1.compareTo(c3));
         Assert.assertEquals(1,c3.compareTo(c2));
         Assert.assertEquals(0,c1.compareTo(c2));
+    }
+
+    @Test
+    public void testFragmentOnlyParsing() throws ParseException {
+        String _f = "#xywh=10,20,30,40";
+        MediaFragment f = MediaFragment.create(_f);
+        Assert.assertEquals("Parsing media fragments did not work properly", _f, f.toString());
+
+        String _f2 = "?xywh=10,20,30,40";
+        MediaFragment f2 = MediaFragment.create(_f2);
+        Assert.assertEquals("Parsing media fragments did not work properly", _f2, f2.toString());
     }
 }

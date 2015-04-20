@@ -15,26 +15,8 @@ import java.net.URISyntaxException;
  */
 public class MediaFragmentURI {
 
-    public static Type DEFAULT_TYPE = Type.FRAGMENT;
-
-    public enum Type {
-        FRAGMENT("#"), QUERY("?");
-
-        private String delimiter;
-
-        Type(String delimiter) {
-            this.delimiter = delimiter;
-        }
-
-        public String getDelimiter() {
-            return delimiter;
-        }
-    }
-
     private URI uri;
     private MediaFragment mediaFragment;
-
-    private Type type = DEFAULT_TYPE;
 
     /**
      * Creates a media fragment from string. If no fragment is specified, an empty media fragment is created
@@ -46,12 +28,10 @@ public class MediaFragmentURI {
             this.uri = new URI(uri_string);
             if(uri.getFragment() != null) {
                 FragmentParser p1 = new FragmentParser(new StringReader(uri.getFragment()));
-                mediaFragment = p1.run();
-                type = Type.FRAGMENT;
+                mediaFragment = p1.run(MediaFragment.Type.FRAGMENT);
             } else if(uri.getQuery() != null) {
                 FragmentParser p1 = new FragmentParser(new StringReader(uri.getQuery()));
-                mediaFragment = p1.run();
-                type = Type.QUERY;
+                mediaFragment = p1.run(MediaFragment.Type.QUERY);
             } else {
                 mediaFragment = new MediaFragment();
             }
@@ -90,6 +70,6 @@ public class MediaFragmentURI {
     }
 
     public String toString() {
-        return mediaFragment != null ? getAbsolutePath() + mediaFragment.toString(type) : getAbsolutePath();
+        return mediaFragment != null ? getAbsolutePath() + mediaFragment.toString() : getAbsolutePath();
     }
 }
