@@ -47,11 +47,7 @@ public class MediaFragmentURITest {
         MediaFragment mediaFragment = p.run();
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
-        Assert.assertEquals("region unit is not parsed properly", SpatialFragment.Unit.PIXEL, mediaFragment.getSpatialFragment().getUnit());
-        Assert.assertEquals("region x is not parsed properly", 160.0, mediaFragment.getSpatialFragment().getX());
-        Assert.assertEquals("region y is not parsed properly", 120.0, mediaFragment.getSpatialFragment().getY());
-        Assert.assertEquals("region w is not parsed properly", 320.0, mediaFragment.getSpatialFragment().getW());
-        Assert.assertEquals("region h is not parsed properly", 240.0, mediaFragment.getSpatialFragment().getH());
+        Assert.assertEquals("region parsed properly", region, mediaFragment.getSpatialFragment().toString());
     }
 
     @Test
@@ -61,11 +57,7 @@ public class MediaFragmentURITest {
         MediaFragment mediaFragment = p.run();
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
-        Assert.assertEquals("region unit is not parsed properly", SpatialFragment.Unit.PIXEL, mediaFragment.getSpatialFragment().getUnit());
-        Assert.assertEquals("region x is not parsed properly", 160.0,mediaFragment.getSpatialFragment().getX());
-        Assert.assertEquals("region y is not parsed properly", 120.0, mediaFragment.getSpatialFragment().getY());
-        Assert.assertEquals("region w is not parsed properly", 320.0,mediaFragment.getSpatialFragment().getW());
-        Assert.assertEquals("region h is not parsed properly", 240.0, mediaFragment.getSpatialFragment().getH());
+        Assert.assertEquals("region parsed properly", "xywh=160,120,320,240", mediaFragment.getSpatialFragment().toString());
     }
 
     @Test
@@ -75,11 +67,7 @@ public class MediaFragmentURITest {
         MediaFragment mediaFragment = p.run();
 
         Assert.assertTrue("region is not properly parsed", mediaFragment.hasSpatialFragment());
-        Assert.assertEquals("region unit is not parsed properly", SpatialFragment.Unit.PERCENT, mediaFragment.getSpatialFragment().getUnit());
-        Assert.assertEquals("region x is not parsed properly", 25.0, mediaFragment.getSpatialFragment().getX());
-        Assert.assertEquals("region y is not parsed properly", 25.0, mediaFragment.getSpatialFragment().getY());
-        Assert.assertEquals("region w is not parsed properly", 50.0, mediaFragment.getSpatialFragment().getW());
-        Assert.assertEquals("region h is not parsed properly", 50.0, mediaFragment.getSpatialFragment().getH());
+        Assert.assertEquals("region parsed properly", region, mediaFragment.getSpatialFragment().toString());
     }
 
     @Test

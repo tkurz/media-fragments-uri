@@ -1,11 +1,13 @@
 package com.github.tkurz.media.fragments.temporal;
 
+import com.github.tkurz.media.ontology.impl.Instant;
+
 /**
  * Represents clocktime as double value
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class Clocktime implements Comparable<Clocktime> {
+public class Clocktime extends Instant {
 
     public static final Clocktime ZERO;
     public static final Clocktime INFINIT;
@@ -15,10 +17,8 @@ public class Clocktime implements Comparable<Clocktime> {
         INFINIT = new Clocktime(Double.POSITIVE_INFINITY);
     }
 
-    private double value;
-
     public Clocktime(double d) {
-        this.value = d;
+        super(d);
     }
 
     /**
@@ -26,7 +26,7 @@ public class Clocktime implements Comparable<Clocktime> {
      * @param seconds
      */
     public Clocktime(String seconds) {
-        value = Double.parseDouble(seconds);
+        super(Double.parseDouble(seconds));
     }
 
     /**
@@ -37,29 +37,15 @@ public class Clocktime implements Comparable<Clocktime> {
      * @param ms
      */
     public Clocktime(String hour, String minutes, String seconds, String ms) {
+        super(parseClocktime(hour, minutes, seconds, ms));
+    }
+
+    private static double parseClocktime(String hour, String minutes, String seconds, String ms) {
         double h = hour != null ? Double.parseDouble(hour) * 3600 : 0;
         double m = Double.parseDouble(minutes) * 60;
         double s = Double.parseDouble(seconds);
         double z = ms != null ? Double.parseDouble("0."+ms) : 0;
-        value = h+m+s+z;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String toString() {
-        if((int) value == value) return Integer.toString((int) value);
-        return String.valueOf(value);
-    }
-
-    @Override
-    public int compareTo(Clocktime o) {
-        return this.value == o.value ? 0 : this.value < o.value ? -1 : 1;
+        return h+m+s+z;
     }
 
     public static Clocktime max(Clocktime... clocktimes) {
