@@ -28,6 +28,11 @@ public class Instant implements TemporalEntity, Time {
     }
 
     @Override
+    public String stringValue() {
+        return String.valueOf(value);
+    }
+
+    @Override
     public int compareTo(Time o) {
         if(o instanceof Instant) return Double.compare(value, ((Instant)o).value);
         throw new NotComparableRuntimeException();

@@ -1,13 +1,13 @@
 package com.github.tkurz.media.fragments.spatial;
 
-import java.awt.geom.Rectangle2D;
+import com.github.tkurz.media.ontology.impl.Rectangle;
 
 /**
  * Represents a spacial fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class SpatialFragment extends Rectangle2D.Double {
+public class SpatialFragment extends Rectangle {
 
     private Unit unit = Unit.PIXEL;
 
@@ -29,7 +29,7 @@ public class SpatialFragment extends Rectangle2D.Double {
         }
     }
 
-    public String toString() {
+    public String stringValue() {
         return "xywh=" + unit + toPrettyString(x) + "," + toPrettyString(y) + "," + toPrettyString(width) + "," + toPrettyString(height);
     }
 

@@ -112,13 +112,18 @@ public class MediaFragment {
         this.spatialFragment = spatialFragment;
     }
 
+    @Override
     public String toString() {
+        return stringValue();
+    }
+
+    public String stringValue() {
         String separator = type.getDelimiter();
         if(id!=null) return separator + "id="+id;
         Set<String> set = new HashSet<>();
         if(track!=null) set.add("track="+track);
-        if(temporalFragment!=null) set.add(temporalFragment.toString());
-        if(spatialFragment !=null) set.add(spatialFragment.toString());
+        if(temporalFragment!=null) set.add(temporalFragment.stringValue());
+        if(spatialFragment !=null) set.add(spatialFragment.stringValue());
         return join(set,separator);
     }
 

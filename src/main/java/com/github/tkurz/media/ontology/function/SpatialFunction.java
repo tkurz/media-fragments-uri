@@ -1,9 +1,11 @@
 package com.github.tkurz.media.ontology.function;
 
+import com.github.tkurz.media.ontology.impl.Rectangle;
 import com.github.tkurz.media.ontology.type.SpatialEntity;
 
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * ...
@@ -122,7 +124,14 @@ public class SpatialFunction {
         }
 
         public static boolean touches(SpatialEntity e1, SpatialEntity e2) {
-            throw new RuntimeException("Not yet implemented");//TODO
+            if(e1 instanceof Rectangle && e2 instanceof Rectangle) {
+                return (e1.getBoundingBox().getX()+ e1.getBoundingBox().getWidth() == e2.getBoundingBox().getX()
+                        || e1.getBoundingBox().getY() + e1.getBoundingBox().getHeight() == e2.getBoundingBox().getY()
+                        || e1.getBoundingBox().getX() == e2.getBoundingBox().getX() + e2.getBoundingBox().getWidth()
+                        || e1.getBoundingBox().getY() == e2.getBoundingBox().getY() + e2.getBoundingBox().getHeight()
+                );
+            }
+            throw new RuntimeException("Not yet implemented for non-rectangular entities");
         }
 
         public static boolean contains(SpatialEntity e1, SpatialEntity e2) {
@@ -139,7 +148,14 @@ public class SpatialFunction {
         }
 
         public static boolean covers(SpatialEntity e1, SpatialEntity e2) {
-            throw new RuntimeException("Not yet implemented");//TODO
+            if(e1 instanceof Rectangle && e2 instanceof Rectangle) {
+                return (e1.getBoundingBox().getX() <= e2.getBoundingBox().getX()
+                        && e1.getBoundingBox().getY() <= e2.getBoundingBox().getY()
+                        && e1.getBoundingBox().getX() + e1.getBoundingBox().getWidth() >= e2.getBoundingBox().getX() + e2.getBoundingBox().getWidth()
+                        && e1.getBoundingBox().getY() + e1.getBoundingBox().getHeight() >= e2.getBoundingBox().getY() + e2.getBoundingBox().getHeight()
+                );
+            }
+            throw new RuntimeException("Not yet implemented for non-rectangular entities");
         }
 
         public static boolean intersects(SpatialEntity e1, SpatialEntity e2) {
@@ -155,13 +171,32 @@ public class SpatialFunction {
         }
 
         public static boolean crosses(SpatialEntity e1, SpatialEntity e2) {
-            throw new RuntimeException("Not yet implemented");//TODO
+            if(e1 instanceof Rectangle && e2 instanceof Rectangle) {
+                return e1.getBoundingBox().intersects(e2.getBoundingBox());
+            }
+            throw new RuntimeException("Not yet implemented for non-rectangular entities");
         }
 
         public static boolean overlaps(SpatialEntity e1, SpatialEntity e2) {
             return intersects(e1,e2) && !equals(e1,e2);
         }
 
+    }
+
+    public static Rectangle getBoundingBox(SpatialEntity... entities) {
+        Rectangle2D combination = entities[0].getBoundingBox();
+        for(int i = 1; i < entities.length; i++) {
+            combination = combination.createUnion(entities[i].getBoundingBox());
+        }
+        return new Rectangle(combination);
+    }
+
+    public static Rectangle getIntersect(SpatialEntity... entities) {
+        Rectangle2D combination = entities[0].getBoundingBox();
+        for(int i = 1; i < entities.length; i++) {
+            combination = combination.createIntersection(entities[i].getBoundingBox());
+        }
+        return new Rectangle(combination);
     }
 
 }

@@ -47,4 +47,14 @@ public class Rectangle extends Rectangle2D.Double implements SpatialEntity {
     public Area getArea() {
         return new Area(this);
     }
+
+    @Override
+    public String stringValue() {
+        return "xywh=" + toPrettyString(x) + "," + toPrettyString(y) + "," + toPrettyString(width) + "," + toPrettyString(height);
+    }
+
+    private String toPrettyString(double d) {
+        return String.valueOf(d).replaceAll("\\.0$","");
+    }
+
 }

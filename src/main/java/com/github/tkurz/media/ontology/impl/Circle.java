@@ -35,4 +35,9 @@ public class Circle extends Ellipse2D.Double implements SpatialEntity {
     public Area getArea() {
         return new Area(this);
     }
+
+    @Override
+    public String stringValue() {
+        return "xcr="+getCenterX()+","+getCenterY()+","+width/2;
+    }
 }

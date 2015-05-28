@@ -16,6 +16,9 @@ public class CombinedFunction {
     }
 
     private SpatialTemporalEntity boundingBox(SpatialTemporalEntity e1, SpatialTemporalEntity e2) throws NotAggregatableException {
+
+
+
         return null;
     }
 

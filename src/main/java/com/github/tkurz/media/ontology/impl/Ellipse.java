@@ -31,4 +31,9 @@ public class Ellipse extends Ellipse2D.Double implements SpatialEntity {
     public Area getArea() {
         return new Area(this);
     }
+
+    @Override
+    public String stringValue() {
+        return "xyab=" + x + "," + y + "," + width + "," + height;
+    }
 }

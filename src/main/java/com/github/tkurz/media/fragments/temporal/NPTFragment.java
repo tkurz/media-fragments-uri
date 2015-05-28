@@ -42,7 +42,7 @@ public class NPTFragment extends TemporalFragment<NPTFragment> {
         this.end = end != null ? end : Clocktime.INFINIT;
     }
 
-    public String toString() {
+    public String stringValue() {
         if(end == Clocktime.INFINIT) return "t="+start;
         if(start == Clocktime.ZERO) return "t=,"+end;
         return "t="+start+","+end;

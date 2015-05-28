@@ -16,4 +16,6 @@ public interface SpatialEntity {
     public Rectangle getBoundingBox();
 
     public Area getArea();
+
+    public String stringValue();
 }

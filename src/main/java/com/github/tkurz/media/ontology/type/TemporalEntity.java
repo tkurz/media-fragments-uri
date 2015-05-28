@@ -10,4 +10,5 @@ public interface TemporalEntity {
     public Time getStart();
     public Time getEnd();
 
+    public String stringValue();
 }

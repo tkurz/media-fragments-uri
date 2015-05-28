@@ -45,4 +45,9 @@ public class Point extends Point2D.Double implements SpatialEntity, Coordinate {
     public Area getArea() {
         return new Area(new Rectangle(this,this));
     }
+
+    @Override
+    public String stringValue() {
+        return x + "," + y;
+    }
 }

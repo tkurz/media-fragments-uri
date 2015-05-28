@@ -31,4 +31,9 @@ public class Interval implements TemporalEntity {
     public Time getEnd() {
         return t2;
     }
+
+    @Override
+    public String stringValue() {
+        return "t=" + t1.getValue() + "," + t2.getValue();
+    }
 }
