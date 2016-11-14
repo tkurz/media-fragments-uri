@@ -6,9 +6,7 @@ import com.github.tkurz.media.fragments.spatial.SpatialFragment;
 import com.github.tkurz.media.fragments.temporal.TemporalFragment;
 
 import java.io.StringReader;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class represents a media fragment. It can include id, track, temporalFragment and spatialFragment.
@@ -120,16 +118,16 @@ public class MediaFragment {
     public String stringValue() {
         String separator = type.getDelimiter();
         if(id!=null) return separator + "id="+id;
-        Set<String> set = new HashSet<>();
-        if(track!=null) set.add("track="+track);
-        if(temporalFragment!=null) set.add(temporalFragment.stringValue());
-        if(spatialFragment !=null) set.add(spatialFragment.stringValue());
-        return join(set,separator);
+        List<String> list = new ArrayList<>();
+        if(track!=null) list.add("track="+track);
+        if(temporalFragment!=null) list.add(temporalFragment.stringValue());
+        if(spatialFragment !=null) list.add(spatialFragment.stringValue());
+        return join(list,separator);
     }
 
-    private String join(Set set, String separator) {
+    private String join(List list, String separator) {
         StringBuilder b = new StringBuilder();
-        Iterator<Set> iterator = set.iterator();
+        Iterator<Set> iterator = list.iterator();
         if(iterator.hasNext()) b.append(separator);
         while(iterator.hasNext()) {
             b.append(iterator.next());
