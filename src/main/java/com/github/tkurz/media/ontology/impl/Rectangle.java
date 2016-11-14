@@ -2,6 +2,7 @@ package com.github.tkurz.media.ontology.impl;
 
 import com.github.tkurz.media.ontology.type.Coordinate;
 import com.github.tkurz.media.ontology.type.SpatialEntity;
+import com.github.tkurz.media.ontology.utils.Utils;
 
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
@@ -50,11 +51,12 @@ public class Rectangle extends Rectangle2D.Double implements SpatialEntity {
 
     @Override
     public String stringValue() {
-        return "xywh=" + toPrettyString(x) + "," + toPrettyString(y) + "," + toPrettyString(width) + "," + toPrettyString(height);
+        return "xywh=" + Utils.prettyPrint(x) + "," + Utils.prettyPrint(y) + "," + Utils.prettyPrint(width) + "," + Utils.prettyPrint(height);
     }
 
-    private String toPrettyString(double d) {
-        return String.valueOf(d).replaceAll("\\.0$","");
+    @Override
+    public String stringValue(Format format) {
+        return stringValue(); //TODO should support more types
     }
 
 }

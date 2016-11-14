@@ -2,6 +2,7 @@ package com.github.tkurz.media.ontology.impl;
 
 import com.github.tkurz.media.ontology.type.Coordinate;
 import com.github.tkurz.media.ontology.type.SpatialEntity;
+import com.github.tkurz.media.ontology.utils.Utils;
 
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
@@ -48,6 +49,11 @@ public class Point extends Point2D.Double implements SpatialEntity, Coordinate {
 
     @Override
     public String stringValue() {
-        return x + "," + y;
+        return Utils.prettyPrint(x) + "," + Utils.prettyPrint(y);
+    }
+
+    @Override
+    public String stringValue(Format format) {
+        return stringValue(); //TODO should support more types
     }
 }

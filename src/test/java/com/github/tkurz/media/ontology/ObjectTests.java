@@ -58,4 +58,10 @@ public class ObjectTests {
         Assert.assertEquals(40,o.getBoundingBox().getLowerRight().getY(),0);
     }
 
+    @Test
+    public void testToString() {
+        SpatialEntity o = new Point(1,1);
+        Assert.assertEquals("1,1", o.stringValue());
+    }
+
 }

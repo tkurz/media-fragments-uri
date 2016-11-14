@@ -215,7 +215,7 @@ public class MediaFragmentURITest {
         uri.getMediaFragment().setSpatialFragment(new SpatialFragment(10, 20, 30, 40));
         uri.getMediaFragment().setTemporalFragment(new NPTFragment(Clocktime.ZERO,new Clocktime(10)));
 
-        Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#xywh=10,20,30,40&t=,10", uri.toString());
+        Assert.assertEquals("values are not stored correctly", "http://example.org/video.mp4#t=,10&xywh=10,20,30,40", uri.toString());
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.github.tkurz.media.fragments.spatial;
 
 import com.github.tkurz.media.ontology.impl.Rectangle;
+import com.github.tkurz.media.ontology.utils.Utils;
 
 /**
  * Represents a spacial fragment. The default unit is 'pixel', the default values for x,y,w,h are 0.
@@ -30,11 +31,24 @@ public class SpatialFragment extends Rectangle {
     }
 
     public String stringValue() {
-        return "xywh=" + unit + toPrettyString(x) + "," + toPrettyString(y) + "," + toPrettyString(width) + "," + toPrettyString(height);
+        return "xywh=" + unit + Utils.prettyPrint(x) + "," + Utils.prettyPrint(y) + "," + Utils.prettyPrint(width) + "," + Utils.prettyPrint(height);
     }
 
-    private String toPrettyString(double d) {
-        return String.valueOf(d).replaceAll("\\.0$","");
+    @Override
+    public String stringValue(Format format) {
+        return stringValue(); //TODO should support more types
+    }
+
+    public SpatialFragment toPixel(SpatialFragment fragment, double c) {
+        if(unit == Unit.PIXEL) return fragment; //TODO should be copied?
+
+        return new SpatialFragment(Unit.PERCENT, x/c, y/c, width/c, height/c);
+    }
+
+    public SpatialFragment toPercent(SpatialFragment fragment, double c) {
+        if(unit == Unit.PERCENT) return fragment; //TODO should be copied?
+
+        return new SpatialFragment(Unit.PIXEL, x*c, y*c, width*c, height*c);
     }
 
 }

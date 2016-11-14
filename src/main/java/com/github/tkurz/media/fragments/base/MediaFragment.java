@@ -4,6 +4,7 @@ import com.github.tkurz.media.fragments.FragmentParser;
 import com.github.tkurz.media.fragments.ParseException;
 import com.github.tkurz.media.fragments.spatial.SpatialFragment;
 import com.github.tkurz.media.fragments.temporal.TemporalFragment;
+import com.github.tkurz.media.ontology.type.SpatialEntity;
 
 import java.io.StringReader;
 import java.util.*;
@@ -123,6 +124,10 @@ public class MediaFragment {
         if(temporalFragment!=null) list.add(temporalFragment.stringValue());
         if(spatialFragment !=null) list.add(spatialFragment.stringValue());
         return join(list,separator);
+    }
+
+    public String stringValue(SpatialEntity.Format format) {
+        return stringValue(); //TODO should support more types
     }
 
     private String join(List list, String separator) {

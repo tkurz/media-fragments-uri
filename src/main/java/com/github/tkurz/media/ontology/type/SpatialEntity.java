@@ -11,6 +11,10 @@ import java.awt.geom.Area;
  */
 public interface SpatialEntity {
 
+    public static enum Format {
+        SIMPLE
+    };
+
     public Coordinate getCenter();
 
     public Rectangle getBoundingBox();
@@ -18,4 +22,7 @@ public interface SpatialEntity {
     public Area getArea();
 
     public String stringValue();
+
+    public String stringValue(Format format);
+
 }

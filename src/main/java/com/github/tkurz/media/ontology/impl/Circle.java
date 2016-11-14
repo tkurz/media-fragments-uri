@@ -2,6 +2,7 @@ package com.github.tkurz.media.ontology.impl;
 
 import com.github.tkurz.media.ontology.type.Coordinate;
 import com.github.tkurz.media.ontology.type.SpatialEntity;
+import com.github.tkurz.media.ontology.utils.Utils;
 
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
@@ -38,6 +39,11 @@ public class Circle extends Ellipse2D.Double implements SpatialEntity {
 
     @Override
     public String stringValue() {
-        return "xcr="+getCenterX()+","+getCenterY()+","+width/2;
+        return "xcr="+ Utils.prettyPrint(getCenterX())+","+Utils.prettyPrint(getCenterY())+","+Utils.prettyPrint(width/2);
+    }
+
+    @Override
+    public String stringValue(Format format) {
+        return stringValue(); //TODO should support more types
     }
 }
