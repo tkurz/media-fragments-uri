@@ -72,4 +72,18 @@ public class MediaFragmentURI {
     public String toString() {
         return mediaFragment != null ? getAbsolutePath() + mediaFragment.toString() : getAbsolutePath();
     }
+
+    public MediaFragmentURI toPixel(double c) {
+        mediaFragment = mediaFragment != null ? mediaFragment.toPixel(c) : null;
+        return this;
+    }
+
+    public MediaFragmentURI toPercent(double c) {
+        mediaFragment = mediaFragment != null ? mediaFragment.toPercent(c) : null;
+        return this;
+    }
+
+    public String stringValue() {
+        return this.toString();
+    }
 }

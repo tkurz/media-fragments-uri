@@ -1,5 +1,6 @@
 package com.github.tkurz.media.fragments.spatial;
 
+import com.github.tkurz.media.ontology.impl.Point;
 import com.github.tkurz.media.ontology.impl.Rectangle;
 import com.github.tkurz.media.ontology.utils.Utils;
 

@@ -4,8 +4,13 @@ import com.github.tkurz.media.fragments.FragmentParser;
 import com.github.tkurz.media.fragments.ParseException;
 import com.github.tkurz.media.fragments.spatial.SpatialFragment;
 import com.github.tkurz.media.fragments.temporal.TemporalFragment;
+import com.github.tkurz.media.ontology.impl.Rectangle;
+import com.github.tkurz.media.ontology.type.Coordinate;
 import com.github.tkurz.media.ontology.type.SpatialEntity;
+import com.github.tkurz.media.ontology.type.SpatialTemporalEntity;
+import com.github.tkurz.media.ontology.type.Time;
 
+import java.awt.geom.Area;
 import java.io.StringReader;
 import java.util.*;
 
@@ -14,7 +19,7 @@ import java.util.*;
  * <p/>
  * Author: Thomas Kurz (tkurz@apache.org)
  */
-public class MediaFragment {
+public class MediaFragment implements SpatialTemporalEntity {
 
     public static final Type DEFAULT_TYPE = Type.FRAGMENT;
 
@@ -116,6 +121,31 @@ public class MediaFragment {
         return stringValue();
     }
 
+    @Override
+    public Coordinate getCenter() {
+        return spatialFragment != null ? spatialFragment.getCenter() : null;
+    }
+
+    @Override
+    public Rectangle getBoundingBox() {
+        return spatialFragment != null ? spatialFragment.getBoundingBox() : null;
+    }
+
+    @Override
+    public Area getArea() {
+        return spatialFragment != null ? spatialFragment.getArea() : null;
+    }
+
+    @Override
+    public Time getStart() {
+        return temporalFragment != null ? temporalFragment.getStart() : null;
+    }
+
+    @Override
+    public Time getEnd() {
+        return temporalFragment != null ? temporalFragment.getEnd() : null;
+    }
+
     public String stringValue() {
         String separator = type.getDelimiter();
         if(id!=null) return separator + "id="+id;
@@ -139,5 +169,17 @@ public class MediaFragment {
             if(iterator.hasNext()) b.append("&");
         }
         return b.toString();
+    }
+
+    public MediaFragment toPixel(double c) {
+        //TODO should be a deep copy maybe ?!
+        spatialFragment = spatialFragment != null ? spatialFragment.toPixel(c) : null;
+        return this;
+    }
+
+    public MediaFragment toPercent(double c) {
+        //TODO should be a deep copy maybe ?!
+        spatialFragment = spatialFragment != null ? spatialFragment.toPercent(c) : null;
+        return this;
     }
 }
