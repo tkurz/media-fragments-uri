@@ -4,7 +4,7 @@
 
     <groupId>com.github.tkurz</groupId>
     <artifactId>media-fragments-uri</artifactId>
-    <version>2.3</version>
+    <version>2.4-SNAPSHOT</version>
     <name>Media Fragments URI 1.0 for Java</name>
     <description>A Java implementation W3C Media Fragments URI 1.0 specification (http://www.w3.org/TR/media-frags/).</description>
     <url>https://github.com/tkurz/media-fragments-uri</url>
