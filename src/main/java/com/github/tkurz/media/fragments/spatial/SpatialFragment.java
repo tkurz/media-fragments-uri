@@ -40,16 +40,16 @@ public class SpatialFragment extends Rectangle {
         return stringValue(); //TODO should support more types
     }
 
-    public SpatialFragment toPixel(double c) {
+    public SpatialFragment toPixel(double width, double height) {
         if(unit == Unit.PIXEL) return this; //TODO should be copied?
 
-        return new SpatialFragment(Unit.PIXEL, x/c, y/c, width/c, height/c);
+        return new SpatialFragment(Unit.PIXEL, x/(width/100), y/(height/100), this.width/(width/100), this.height/(height/100));
     }
 
-    public SpatialFragment toPercent(double c) {
+    public SpatialFragment toPercent(double width, double height) {
         if(unit == Unit.PERCENT) return this; //TODO should be copied?
 
-        return new SpatialFragment(Unit.PERCENT, x*c, y*c, width*c, height*c);
+        return new SpatialFragment(Unit.PERCENT, x*(width/100), y*(height/100), this.width*(width/100), this.height*(height/100));
     }
 
 }

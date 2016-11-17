@@ -262,17 +262,17 @@ public class MediaFragmentURITest {
         String _fpercent = "xywh=percent:5,5,10,15";
         SpatialFragment s = MediaFragment.create("#"+_fpx).getSpatialFragment();
 
-        Assert.assertEquals(_fpx, s.toPixel(10).stringValue());
+        Assert.assertEquals(_fpx, s.toPixel(10,10).stringValue());
 
-        SpatialFragment s2 = s.toPercent(0.5);
+        SpatialFragment s2 = s.toPercent(50,50);
 
         Assert.assertEquals(_fpercent, s2.stringValue());
 
-        Assert.assertEquals(_fpercent, s2.toPercent(10).stringValue());
+        Assert.assertEquals(_fpercent, s2.toPercent(10,10).stringValue());
 
-        Assert.assertEquals(_fpx, s2.toPixel(0.5).stringValue());
+        Assert.assertEquals(_fpx, s2.toPixel(50,50).stringValue());
 
-        Assert.assertEquals("xywh=5,5,10,15", s2.toPixel(1).stringValue());
+        Assert.assertEquals("xywh=5,5,10,15", s2.toPixel(100,100).stringValue());
 
     }
 }

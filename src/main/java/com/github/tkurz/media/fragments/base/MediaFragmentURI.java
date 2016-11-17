@@ -73,13 +73,13 @@ public class MediaFragmentURI {
         return mediaFragment != null ? getAbsolutePath() + mediaFragment.toString() : getAbsolutePath();
     }
 
-    public MediaFragmentURI toPixel(double c) {
-        mediaFragment = mediaFragment != null ? mediaFragment.toPixel(c) : null;
+    public MediaFragmentURI toPixel(double width, double height) {
+        mediaFragment = mediaFragment != null ? mediaFragment.toPixel(width,height) : null;
         return this;
     }
 
-    public MediaFragmentURI toPercent(double c) {
-        mediaFragment = mediaFragment != null ? mediaFragment.toPercent(c) : null;
+    public MediaFragmentURI toPercent(double width, double height) {
+        mediaFragment = mediaFragment != null ? mediaFragment.toPercent(width,height) : null;
         return this;
     }
 

@@ -171,15 +171,15 @@ public class MediaFragment implements SpatialTemporalEntity {
         return b.toString();
     }
 
-    public MediaFragment toPixel(double c) {
+    public MediaFragment toPixel(double width, double height) {
         //TODO should be a deep copy maybe ?!
-        spatialFragment = spatialFragment != null ? spatialFragment.toPixel(c) : null;
+        spatialFragment = spatialFragment != null ? spatialFragment.toPixel(width,height) : null;
         return this;
     }
 
-    public MediaFragment toPercent(double c) {
+    public MediaFragment toPercent(double width, double height) {
         //TODO should be a deep copy maybe ?!
-        spatialFragment = spatialFragment != null ? spatialFragment.toPercent(c) : null;
+        spatialFragment = spatialFragment != null ? spatialFragment.toPercent(width,height) : null;
         return this;
     }
 }
