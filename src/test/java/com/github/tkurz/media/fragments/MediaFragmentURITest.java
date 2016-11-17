@@ -258,21 +258,21 @@ public class MediaFragmentURITest {
     @Test
     public void testPixelPercentCalculation() throws ParseException {
 
-        String _fpx = "xywh=10,10,20,30";
-        String _fpercent = "xywh=percent:5,5,10,15";
+        String _fpx = "xywh=10,10,10,10";
+        String _fpercent = "xywh=percent:10,5,10,5";
         SpatialFragment s = MediaFragment.create("#"+_fpx).getSpatialFragment();
 
-        Assert.assertEquals(_fpx, s.toPixel(10,10).stringValue());
+        Assert.assertEquals(_fpx, s.toPixel(100,200).stringValue());
 
-        SpatialFragment s2 = s.toPercent(50,50);
+        SpatialFragment s2 = s.toPercent(100,200);
 
         Assert.assertEquals(_fpercent, s2.stringValue());
 
-        Assert.assertEquals(_fpercent, s2.toPercent(10,10).stringValue());
+        Assert.assertEquals(_fpercent, s2.toPercent(100,200).stringValue());
 
-        Assert.assertEquals(_fpx, s2.toPixel(50,50).stringValue());
+        Assert.assertEquals(_fpx, s2.toPixel(100,200).stringValue());
 
-        Assert.assertEquals("xywh=5,5,10,15", s2.toPixel(100,100).stringValue());
+        Assert.assertEquals("xywh=10,5,10,5", s2.toPixel(100,100).stringValue());
 
     }
 }

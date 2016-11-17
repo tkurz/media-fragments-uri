@@ -43,13 +43,13 @@ public class SpatialFragment extends Rectangle {
     public SpatialFragment toPixel(double width, double height) {
         if(unit == Unit.PIXEL) return this; //TODO should be copied?
 
-        return new SpatialFragment(Unit.PIXEL, x/(width/100), y/(height/100), this.width/(width/100), this.height/(height/100));
+        return new SpatialFragment(Unit.PIXEL, x*(width/100), y*(height/100), this.width*(width/100), this.height*(height/100));
     }
 
     public SpatialFragment toPercent(double width, double height) {
         if(unit == Unit.PERCENT) return this; //TODO should be copied?
 
-        return new SpatialFragment(Unit.PERCENT, x*(width/100), y*(height/100), this.width*(width/100), this.height*(height/100));
+        return new SpatialFragment(Unit.PERCENT, x/(width/100), y/(height/100), this.width/(width/100), this.height/(height/100));
     }
 
 }
